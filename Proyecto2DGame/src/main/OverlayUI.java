@@ -41,6 +41,8 @@ public class OverlayUI {
             int textLargo;
             int x;
             int y;
+
+            /// Texto que aparece al terminar el juego cuando abres el cofre con una llave
             text = "Has encontrado el tesoro!";
             textLargo = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
             x = gp.screenWidth / 2 - textLargo / 2;
@@ -55,7 +57,7 @@ public class OverlayUI {
             y = gp.screenHeight / 2 - (gp.tileSize * 4);
             g2.drawString(text, x, y);
 
-
+            /// Texto que aparece al terminar el juego
             g2.setFont(arial_80B);
             g2.setColor(Color.yellow);
             text = "Juego terminado!";
@@ -66,6 +68,7 @@ public class OverlayUI {
 
             gp.gameThread = null;
         }else {
+            /// Logica para saber las llaves que tiene el jugador
             g2.setFont(arial_20);
             g2.setColor(Color.white);
             g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
@@ -75,7 +78,7 @@ public class OverlayUI {
             tiempoJuego += (double) 1 / 60;
             g2.drawString("Tiempo: " + dFormato.format(tiempoJuego), gp.tileSize*11, 65);
 
-            //Mensaje
+            //Mensaje en pantalla del juego
             if (messageOn) {
                 g2.setFont(g2.getFont().deriveFont(30.0f));
                 g2.drawString(message, gp.tileSize/2, gp.tileSize*5);
