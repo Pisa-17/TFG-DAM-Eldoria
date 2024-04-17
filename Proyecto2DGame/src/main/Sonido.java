@@ -11,7 +11,7 @@ public class Sonido {
 
     /// Array de canciones del juego
     public Sonido(){
-        soundURL[0] = getClass().getResource("/sonido/cancionrusa.wav");
+        soundURL[1] = getClass().getResource("/sonido/background.wav");
     }
     /// Metodo encargado de cargar el archivo de sonido
     public void setFile(int i){
