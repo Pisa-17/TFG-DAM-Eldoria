@@ -31,7 +31,7 @@ public class Player extends Entidad {
         setDefaultValues();
         getPlayerSpritesWalking();
     }
-
+    /// Este metodo se encarga de cargar los sprites del jugador que se usaran en otro metodo
     public void getPlayerSpritesWalking() {
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Up1.png"));
@@ -53,7 +53,7 @@ public class Player extends Entidad {
         speed = 4;
         path = "down";
     }
-
+    /// Este metodo actualiza el movimiento del jugador
     public void update() {
         if (KeyH.upPressed == true || KeyH.downPreseed == true || KeyH.rightPressed == true || KeyH.leftPressed == true) {
             if (KeyH.upPressed) {
@@ -106,7 +106,7 @@ public class Player extends Entidad {
             }
         }
     }
-
+    /// Este metodo se encarga de recoger objetos y contabilizarlos
     public void recogerObjeto(int index) {
         if (index != 999) {
             String objecName = gp.obj[index].name;
@@ -133,7 +133,7 @@ public class Player extends Entidad {
 
         }
     }
-
+    /// Metodo que dibuja el personaje
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;

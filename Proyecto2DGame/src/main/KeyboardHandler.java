@@ -2,13 +2,13 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+///Clase encargada de los controles del juego
 public class KeyboardHandler implements KeyListener {
     public boolean upPressed, downPreseed, leftPressed, rightPressed;
     @Override
     public void keyTyped(KeyEvent e) {
     }
-
+    /// Parte referente a las teclas del teclado
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -27,6 +27,7 @@ public class KeyboardHandler implements KeyListener {
         }
     }
 
+    ///Parte encargada del evento del teclado que ocurre al soltarse la tecla
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();

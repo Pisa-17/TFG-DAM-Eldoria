@@ -4,7 +4,7 @@ import object.obj_key;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
+///Clase encargada del HUD
 public class OverlayUI {
     GamePanel gp;
     Font arial_20;

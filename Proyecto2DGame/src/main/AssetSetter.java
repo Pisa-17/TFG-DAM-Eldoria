@@ -4,7 +4,7 @@ import object.obj_boots;
 import object.obj_chest;
 import object.obj_key;
 import object.obj_scroll;
-
+///Clase que se encarga de poner los assetts en el juego
 public class AssetSetter {
     GamePanel gp;
 
