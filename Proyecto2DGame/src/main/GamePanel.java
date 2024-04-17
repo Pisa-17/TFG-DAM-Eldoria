@@ -124,7 +124,7 @@ public class GamePanel extends JPanel implements  Runnable{
         musica.loop();
     }
     /// Metodo para parar la musica
-    private void stopMusic(){
+    public void stopMusic(){
         musica.stop();
     }
     /// Metodo para poner efectos de sonido ¨ACTUALMENTE EN DESHUSO¨

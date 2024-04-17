@@ -122,11 +122,18 @@ public class Player extends Entidad {
                     if (tengoKey > 0) {
                         tengoKey--;
                         gp.obj[index] = null;
+                        gp.overlayUI.showMessage("Has abierto la puerta");
+                    }else {
+                        gp.overlayUI.showMessage("Necesitas una llave para abrir la puerta");
                     }
                     break;
                 case "Botas":
                     speed += 2;
                     gp.obj[index] = null;
+                    break;
+                    case "Cofre":
+                    gp.overlayUI.juegoFin = true;
+                    gp.stopMusic();
                     break;
 
             }
