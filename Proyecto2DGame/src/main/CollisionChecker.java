@@ -1,5 +1,4 @@
 package main;
-///Clase que se encarga de verificar las colisiones o la hitbox en el juego
 public class CollisionChecker {
 
     GamePanel gp;
@@ -8,7 +7,6 @@ public class CollisionChecker {
         this.gp = gp;
 
     }
-    /// Este metodo se ocupa de ver las colisiones de los tiles del mapa, es decir si el jugador o enemigo choca con una pared o un objeto no atravesable y ademas sabe por que lugar le toca
     public void checkTitle(Entidad entity){
 
         int entityLeftWorldX = entity.wordlx + entity.hitbox.x;
@@ -58,7 +56,6 @@ public class CollisionChecker {
                 break;
         }
     }
-    /// Este metodo se encarga de verificar si el jugador choca con un objeto solido
     public int checkObj(Entidad entity, boolean player){
         int index = 999;
         for (int i=0; i<gp.obj.length; i++){

@@ -2,13 +2,17 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-///Clase encargada de los controles del juego
+
 public class KeyboardHandler implements KeyListener {
+    GamePanel gp;
     public boolean upPressed, downPreseed, leftPressed, rightPressed;
     @Override
     public void keyTyped(KeyEvent e) {
     }
-    /// Parte referente a las teclas del teclado
+    public KeyboardHandler(GamePanel gp){
+        this.gp = gp;
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -25,9 +29,15 @@ public class KeyboardHandler implements KeyListener {
         if (code == KeyEvent.VK_D){
             rightPressed = true;
         }
+        if (code == KeyEvent.VK_P){
+            if (gp.gameState== gp.playState){
+                gp.gameState = gp.pauseState;
+            }else {
+                gp.gameState = gp.playState;
+            }
+        }
     }
 
-    ///Parte encargada del evento del teclado que ocurre al soltarse la tecla
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();

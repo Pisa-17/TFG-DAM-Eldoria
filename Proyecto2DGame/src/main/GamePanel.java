@@ -30,21 +30,21 @@ public class GamePanel extends JPanel implements  Runnable{
 
     //SYSTEM
     public TileManager TileM = new TileManager(this);
-    KeyboardHandler KeyH = new KeyboardHandler();
-    /// Variables para el sonido
+    KeyboardHandler KeyH = new KeyboardHandler(this);
     Sonido musica = new Sonido();
     Sonido soundEffects = new Sonido();
-    /// Variables para la colision o hitbox
 
     CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public OverlayUI overlayUI = new OverlayUI(this);
-    /// Thread principal
     Thread gameThread;
-    /// Declaracion de objetos jugador y objetos del mapa
     public Player player = new Player(this,KeyH);
     public Sobject obj [] = new Sobject[10];
-    /// Constructor de la clase que nos realiza el panel principal del programa
+
+    // GAME STATE THINGS
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
 
     public GamePanel (){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -53,17 +53,15 @@ public class GamePanel extends JPanel implements  Runnable{
         this.addKeyListener(KeyH);
         this.setFocusable(true);
     }
-    /// Metodo que nos permite inicializar los objetos del juego y los coloca en el mapa
     public void setupStuff(){
         aSetter.setObject();
         playMusic(1);
+        gameState = playState;
     }
-    /// Metodo que nos permite iniciar el hilo principal del juego
     public void startGameThread(){
         gameThread = new Thread(this);
         gameThread.start();
     }
-    /// Metodo para tener el juego a 60 fps
     @Override
     public void run() {
 
@@ -91,11 +89,15 @@ public class GamePanel extends JPanel implements  Runnable{
                 }
             }
     }
-    /// Metodo que nos actualiza la posicion del jugador constantemente
     public void update (){
-       player.update();
+        if (gameState == playState) {
+            player.update();
+        }
+        if (gameState == pauseState){
+
+        }
+            //nothing at the moment
     }
-    /// Metodo que nos pinta los objetos en el mapa
     public void paintComponent(Graphics g){
 
         super.paintComponents(g);
@@ -117,17 +119,14 @@ public class GamePanel extends JPanel implements  Runnable{
         overlayUI.drawUI(g2);
         g2.dispose();
     }
-    /// Metodo para poner musica
     public void playMusic(int i){
         musica.setFile(i);
         musica.play();
         musica.loop();
     }
-    /// Metodo para parar la musica
-    public void stopMusic(){
+    private void stopMusic(){
         musica.stop();
     }
-    /// Metodo para poner efectos de sonido ¨ACTUALMENTE EN DESHUSO¨
     public void playSE(int i){
         soundEffects.setFile(i);
         soundEffects.play();

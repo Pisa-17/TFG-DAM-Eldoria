@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.Buffer;
 
 public class Player extends Entidad {
     GamePanel gp;
@@ -11,7 +12,7 @@ public class Player extends Entidad {
 
     public final int ScreenX;
     public final int ScreenY;
-    int tengoKey = 0;
+    //int tengoKey = 0;
 
     public Player(GamePanel gp, KeyboardHandler KeyH) {
         this.gp = gp;
@@ -31,20 +32,42 @@ public class Player extends Entidad {
         setDefaultValues();
         getPlayerSpritesWalking();
     }
-    /// Este metodo se encarga de cargar los sprites del jugador que se usaran en otro metodo
+
     public void getPlayerSpritesWalking() {
-        try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Up1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Up2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Down1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Down2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Right1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Right2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Left1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Left2.png"));
+//        try {
+//            up1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Up1.png"));
+//            up2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Up2.png"));
+//            down1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Down1.png"));
+//            down2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Down2.png"));
+//            right1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Right1.png"));
+//            right2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Right2.png"));
+//            left1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Left1.png"));
+//            left2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Left2.png"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        up1 = setup("ninja_up1");
+        up2 = setup("ninja_up2");
+        down1 = setup("ninja_down1");
+        down2 = setup("ninja_down2");
+        right1 = setup("ninja_right1");
+        right2 = setup("ninja_right2");
+        left1 = setup("ninja_left1");
+        left2 = setup("ninja_left2");
+
+    }
+    public BufferedImage setup(String imageName ){
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try{
+            image = ImageIO.read(getClass().getResourceAsStream("/player/"+ imageName +".png"));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+        return image;
     }
 
     public void setDefaultValues() {
@@ -53,7 +76,7 @@ public class Player extends Entidad {
         speed = 4;
         path = "down";
     }
-    /// Este metodo actualiza el movimiento del jugador
+
     public void update() {
         if (KeyH.upPressed == true || KeyH.downPreseed == true || KeyH.rightPressed == true || KeyH.leftPressed == true) {
             if (KeyH.upPressed) {
@@ -106,41 +129,14 @@ public class Player extends Entidad {
             }
         }
     }
-    /// Este metodo se encarga de recoger objetos y contabilizarlos
+
     public void recogerObjeto(int index) {
         if (index != 999) {
             String objecName = gp.obj[index].name;
 
-            switch (objecName) {
-                case "Gold Key":
-                    //gp.playSE(2);
-                    tengoKey++;
-                    gp.obj[index] = null;
-                    gp.overlayUI.showMessage("Has recogido una llave");
-                    break;
-                case "Door":
-                    if (tengoKey > 0) {
-                        tengoKey--;
-                        gp.obj[index] = null;
-                        gp.overlayUI.showMessage("Has abierto la puerta");
-                    }else {
-                        gp.overlayUI.showMessage("Necesitas una llave para abrir la puerta");
-                    }
-                    break;
-                case "Botas":
-                    speed += 2;
-                    gp.obj[index] = null;
-                    break;
-                    case "Cofre":
-                    gp.overlayUI.juegoFin = true;
-                    gp.stopMusic();
-                    break;
-
-            }
-
         }
     }
-    /// Metodo que dibuja el personaje
+
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
@@ -178,6 +174,6 @@ public class Player extends Entidad {
                 }
                 break;
         }
-        g2.drawImage(image, ScreenX, ScreenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, ScreenX, ScreenY, null);
     }
 }

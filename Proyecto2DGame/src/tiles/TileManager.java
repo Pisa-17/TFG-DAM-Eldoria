@@ -1,9 +1,11 @@
 package tiles;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +22,7 @@ public class TileManager {
 
         this.gp = gp;
 
-        tile = new Tile[10];
+        tile = new Tile[50];
 
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
@@ -30,28 +32,62 @@ public class TileManager {
 
     public void getTileImage(){
 
-        try{
-            ///Cesped
+        ///Cesped
+
+            /*
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/001.png"));
+            */
 
-            ////Tree
+        setup(0,"001",false);
+
+        ////Tree
+
+            /*
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/002.png"));
             tile[1].colision = true;
-            ////Roca
+            */
+        setup(1,"002",true);
+
+        ////Roca
+
+            /*
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/003.png"));
             tile[2].colision = true;
+            */
 
-            ////Agua
+        setup(2,"003",true);
+
+        ////Agua
+            /*
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/004.png"));
             tile[3].colision = true;
+            */
 
-            ////Arena
+        setup(3,"004",true);
+
+        ////Arena
+
+            /*
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/005.png"));
+            */
+
+        setup(4,"005",false);
+
+    }
+
+    public void setup(int index, String imageName, boolean collision){
+        UtilityTool uTool = new UtilityTool();
+
+        try{
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"+ imageName +".png"));
+            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+            tile[index].colision = collision;
 
         }catch (IOException e){
             e.printStackTrace();
@@ -105,7 +141,7 @@ public class TileManager {
             int screenX = worldX - gp.player.wordlx + gp.player.ScreenX;
             int screenY = worldy - gp.player.wordly + gp.player.ScreenY;
 
-            g2.drawImage(tile[tileNum].image,screenX,screenY,gp.tileSize, gp.tileSize, null);
+            g2.drawImage(tile[tileNum].image,screenX,screenY, null);
 
             Wordlcol++;
 

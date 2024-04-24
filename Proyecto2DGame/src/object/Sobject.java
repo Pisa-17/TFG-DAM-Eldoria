@@ -1,10 +1,11 @@
 package object;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.RecursiveAction;
+
 
 public class Sobject {
     public BufferedImage image;
@@ -14,6 +15,8 @@ public class Sobject {
     public Rectangle solidArea = new Rectangle(0, 0, 48,48);
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
+
+    UtilityTool uTool = new UtilityTool();
 
     public void draw(Graphics2D g2, GamePanel gp){
         int screenX = worldX - gp.player.wordlx + gp.player.ScreenX;
