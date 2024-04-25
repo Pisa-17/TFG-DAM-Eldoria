@@ -12,24 +12,12 @@ public class AssetSetter {
         this.gp = gp;
     }
     public void setObject(){
-        gp.obj[0] = new obj_key(gp);
-        gp.obj[0].worldX = 35 * gp.tileSize;
-        gp.obj[0].worldY = 45 * gp.tileSize;
 
-        gp.obj[1] = new obj_key(gp);
-        gp.obj[1].worldX = 20 * gp.tileSize;
-        gp.obj[1].worldY = 25 * gp.tileSize;
+    }
+    public void setNPC(){
 
-        gp.obj[2] = new obj_chest(gp);
-        gp.obj[2].worldX = 22 * gp.tileSize;
-        gp.obj[2].worldY = 22 * gp.tileSize;
-
-        gp.obj[3] = new obj_scroll(gp);
-        gp.obj[3].worldX = 27 * gp.tileSize;
-        gp.obj[3].worldY = 25 * gp.tileSize;
-
-        gp.obj[3] = new obj_boots(gp);
-        gp.obj[3].worldX = 22 * gp.tileSize;
-        gp.obj[3].worldY = 25 * gp.tileSize;
+        gp.npc[0] = new NPC_Sabio(gp);
+        gp.npc[0].wordlx = gp.tileSize*21;
+        gp.npc[0].wordly = gp.tileSize*21;
     }
 }

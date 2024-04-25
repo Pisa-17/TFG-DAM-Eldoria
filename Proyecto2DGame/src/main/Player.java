@@ -7,15 +7,15 @@ import java.io.IOException;
 import java.nio.Buffer;
 
 public class Player extends Entidad {
-    GamePanel gp;
     KeyboardHandler KeyH;
-
     public final int ScreenX;
     public final int ScreenY;
-    //int tengoKey = 0;
+    int standCounter = 0;
+
 
     public Player(GamePanel gp, KeyboardHandler KeyH) {
-        this.gp = gp;
+        super(gp);
+
         this.KeyH = KeyH;
 
         ScreenX = gp.screenWidth / 2 - gp.tileSize / 2;
@@ -34,41 +34,18 @@ public class Player extends Entidad {
     }
 
     public void getPlayerSpritesWalking() {
-//        try {
-//            up1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Up1.png"));
-//            up2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Up2.png"));
-//            down1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Down1.png"));
-//            down2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Down2.png"));
-//            right1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Right1.png"));
-//            right2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Right2.png"));
-//            left1 = ImageIO.read(getClass().getResourceAsStream("/player/character_Left1.png"));
-//            left2 = ImageIO.read(getClass().getResourceAsStream("/player/character_Left2.png"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
-        up1 = setup("ninja_up1");
-        up2 = setup("ninja_up2");
-        down1 = setup("ninja_down1");
-        down2 = setup("ninja_down2");
-        right1 = setup("ninja_right1");
-        right2 = setup("ninja_right2");
-        left1 = setup("ninja_left1");
-        left2 = setup("ninja_left2");
+        up1 = setup("/player/ninja_up1");
+        up2 = setup("/player/ninja_up2");
+        down1 = setup("/player/ninja_down1");
+        down2 = setup("/player/ninja_down2");
+        right1 = setup("/player/ninja_right1");
+        right2 = setup("/player/ninja_right2");
+        left1 = setup("/player/ninja_left1");
+        left2 = setup("/player/ninja_left2");
 
     }
-    public BufferedImage setup(String imageName ){
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
 
-        try{
-            image = ImageIO.read(getClass().getResourceAsStream("/player/"+ imageName +".png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return image;
-    }
 
     public void setDefaultValues() {
         wordlx = 610;
@@ -101,6 +78,10 @@ public class Player extends Entidad {
             int objIndex = gp.cChecker.checkObj(this, true);
             recogerObjeto(objIndex);
 
+            /// Check de la colision del NPC
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactionNpc(npcIndex);
+
             ///Si la colision es falsa
             if (collision == false) {
                 switch (path) {
@@ -130,9 +111,14 @@ public class Player extends Entidad {
         }
     }
 
+    private void interactionNpc(int npcIndex) {
+        if (npcIndex != 999) {
+            System.out.println("You are hitting the NPC!");
+        }
+    }
+
     public void recogerObjeto(int index) {
         if (index != 999) {
-            String objecName = gp.obj[index].name;
 
         }
     }

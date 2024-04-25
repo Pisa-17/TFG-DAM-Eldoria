@@ -9,7 +9,7 @@ public class Main {
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         win.setResizable(false);
         //win.setBackground(Color.black);
-        win.setTitle("2D Aventura");
+        win.setTitle("Eldoria");
 
         GamePanel gpanel = new GamePanel();
         win.add(gpanel);

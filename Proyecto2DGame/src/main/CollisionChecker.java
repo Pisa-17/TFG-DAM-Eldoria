@@ -123,5 +123,93 @@ public class CollisionChecker {
         return index;
 
     }
+    public int checkEntity(Entidad entidad, Entidad[] target){
+        int index = 999;
+        for (int i=0; i<target.length; i++){
+            if (target[i] != null){
+                entidad.hitbox.x = entidad.wordlx + entidad.hitbox.x;
+                entidad.hitbox.y = entidad.wordly + entidad.hitbox.y;
+
+                target[i].hitbox.x = target[i].wordlx + target[i].hitbox.x;
+                target[i].hitbox.y = target[i].wordly + target[i].hitbox.y;
+
+                switch (entidad.path){
+                    case "up":
+                        entidad.hitbox.y -= entidad.speed;
+                        if (entidad.hitbox.intersects(target[i].hitbox)){
+                                entidad.collision = true;
+                                index = i;
+                        }
+                        break;
+                    case "down":
+                        entidad.hitbox.y += entidad.speed;
+                        if (entidad.hitbox.intersects(target[i].hitbox)){
+                                entidad.collision = true;
+                                index = i;
+                        }
+                        break;
+                    case "left":
+                        entidad.hitbox.x -= entidad.speed;
+                        if (entidad.hitbox.intersects(target[i].hitbox)) {
+                                entidad.collision = true;
+                                index = i;
+                        }
+                        break;
+                    case "right":
+                        entidad.hitbox.x += entidad.speed;
+                        if (entidad.hitbox.intersects(target[i].hitbox)){
+                                entidad.collision = true;
+                                index = i;
+                        }
+                        break;
+                }
+                entidad.hitbox.x = entidad.solidAreaDefaultX;
+                entidad.hitbox.y = entidad.solidAreaDefaultY;
+                target[i].hitbox.x = target[i].solidAreaDefaultX;
+                target[i].hitbox.y = target[i].solidAreaDefaultY;
+
+
+            }
+        }
+        return index;
+    }
+    public void checkPlayer(Entidad entidad){
+        entidad.hitbox.x = entidad.wordlx + entidad.hitbox.x;
+        entidad.hitbox.y = entidad.wordly + entidad.hitbox.y;
+
+        gp.player.hitbox.x = gp.player.wordlx + gp.player.hitbox.x;
+        gp.player.hitbox.y = gp.player.wordly + gp.player.hitbox.y;
+
+        switch (entidad.path){
+            case "up":
+                entidad.hitbox.y -= entidad.speed;
+                if (entidad.hitbox.intersects(gp.player.hitbox)){
+                    entidad.collision = true;
+                }
+                break;
+            case "down":
+                entidad.hitbox.y += entidad.speed;
+                if (entidad.hitbox.intersects(gp.player.hitbox)){
+                    entidad.collision = true;
+                }
+                break;
+            case "left":
+                entidad.hitbox.x -= entidad.speed;
+                if (entidad.hitbox.intersects(gp.player.hitbox)) {
+                    entidad.collision = true;
+                }
+                break;
+            case "right":
+                entidad.hitbox.x += entidad.speed;
+                if (entidad.hitbox.intersects(gp.player.hitbox)){
+                    entidad.collision = true;
+                }
+                break;
+        }
+        entidad.hitbox.x = entidad.solidAreaDefaultX;
+        entidad.hitbox.y = entidad.solidAreaDefaultY;
+        gp.player.hitbox.x = gp.player.solidAreaDefaultX;
+        gp.player.hitbox.y = gp.player.solidAreaDefaultY;
+    }
 }
 

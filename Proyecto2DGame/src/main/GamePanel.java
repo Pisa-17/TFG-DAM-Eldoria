@@ -38,8 +38,11 @@ public class GamePanel extends JPanel implements  Runnable{
     public AssetSetter aSetter = new AssetSetter(this);
     public OverlayUI overlayUI = new OverlayUI(this);
     Thread gameThread;
+
+    // ENTITY AND OBJS
     public Player player = new Player(this,KeyH);
     public Sobject obj [] = new Sobject[10];
+    public Entidad npc[] = new Entidad[10];
 
     // GAME STATE THINGS
     public int gameState;
@@ -55,6 +58,7 @@ public class GamePanel extends JPanel implements  Runnable{
     }
     public void setupStuff(){
         aSetter.setObject();
+        aSetter.setNPC();
         playMusic(1);
         gameState = playState;
     }
@@ -91,12 +95,21 @@ public class GamePanel extends JPanel implements  Runnable{
     }
     public void update (){
         if (gameState == playState) {
+
+            /// Jugador
             player.update();
+
+            /// NPC things
+            for(int i = 0; i<npc.length; i++){
+                if (npc[i] != null){
+                    npc[i].update();
+                }
+            }
         }
         if (gameState == pauseState){
-
-        }
             //nothing at the moment
+        }
+
     }
     public void paintComponent(Graphics g){
 
@@ -111,6 +124,13 @@ public class GamePanel extends JPanel implements  Runnable{
             if (obj[i] != null){
                 obj[i].draw(g2, this);
             }
+        }
+        /// npcs
+        for(int i = 0; i < npc.length; i++){
+            if(npc[i] != null){
+                npc[i].draw(g2);
+            }
+
         }
         ///player
         player.draw(g2);
