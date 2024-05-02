@@ -14,6 +14,7 @@ public class NPC_Sabio extends Entidad{
         speed = 1;
 
         getImage();
+        setDialogue();
     }
 
     public void getImage() {
@@ -28,7 +29,13 @@ public class NPC_Sabio extends Entidad{
         left2 = setup("/npc/monk_left2");
 
     }
-
+    public void setDialogue(){
+        dialogues[0] = "Hola aventurero!";
+        dialogues[1] = "Asi que has llegado a esta \nisla por casualidad, curioso la verdad...";
+        dialogues[2] = "Yo soy un monje bastante anciano\n ya, pero podria ayudarte";
+        dialogues[3] = "Aunque las cosas por aqui \nno van tan bien como parece";
+        dialogues[4] = "Ten buena suerte en la aventura y \nno dudes en consultarme dudas";
+    }
     @Override
     public void setAction() {
         actionLoockCounter++;
@@ -50,6 +57,28 @@ public class NPC_Sabio extends Entidad{
                 path = "right";
             }
             actionLoockCounter = 0;
+        }
+    }
+    public void speak(){
+        if (dialogues[dialogueIndex] == null){
+            dialogueIndex = 0;
+        }
+        gp.overlayUI.dialogo = dialogues[dialogueIndex];
+        dialogueIndex++;
+
+        switch (gp.player.path){
+            case "up":
+                path = "down";
+                break;
+            case "down":
+                path = "up";
+                break;
+            case "left":
+                path = "right";
+                break;
+            case "right":
+                path = "left";
+                break;
         }
     }
 }

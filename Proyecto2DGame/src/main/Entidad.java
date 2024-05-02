@@ -18,11 +18,14 @@ public class Entidad {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = false;
     public int actionLoockCounter = 0;
+    public String dialogues[] = new String[20];
+    int dialogueIndex = 0;
 
         public Entidad(GamePanel gp){
             this.gp = gp;
         }
         public void setAction(){}
+        public void speak(){}
         public void update(){
             setAction();
 

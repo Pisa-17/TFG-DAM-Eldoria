@@ -113,8 +113,12 @@ public class Player extends Entidad {
 
     private void interactionNpc(int npcIndex) {
         if (npcIndex != 999) {
-            System.out.println("You are hitting the NPC!");
+            if (gp.KeyH.enterPressed) {
+                gp.gameState = gp.dialogueState;
+                gp.npc[npcIndex].speak();
+            }
         }
+        gp.KeyH.enterPressed = false;
     }
 
     public void recogerObjeto(int index) {
