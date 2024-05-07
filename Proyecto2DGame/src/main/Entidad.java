@@ -25,7 +25,28 @@ public class Entidad {
             this.gp = gp;
         }
         public void setAction(){}
-        public void speak(){}
+        public void speak(){
+            if (dialogues[dialogueIndex] == null){
+                dialogueIndex = 0;
+            }
+            gp.overlayUI.dialogo = dialogues[dialogueIndex];
+            dialogueIndex++;
+
+            switch (gp.player.path){
+                case "up":
+                    path = "down";
+                    break;
+                case "down":
+                    path = "up";
+                    break;
+                case "left":
+                    path = "right";
+                    break;
+                case "right":
+                    path = "left";
+                    break;
+            }
+        }
         public void update(){
             setAction();
 

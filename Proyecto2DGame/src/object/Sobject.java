@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 
 public class Sobject {
-    public BufferedImage image;
+    public BufferedImage image, image2, image3;
     public String name;
     public boolean collision = true;
     public int worldX, worldY;

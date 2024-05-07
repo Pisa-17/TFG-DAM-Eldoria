@@ -31,10 +31,10 @@ public class NPC_Sabio extends Entidad{
     }
     public void setDialogue(){
         dialogues[0] = "Hola aventurero!";
-        dialogues[1] = "Asi que has llegado a esta \nisla por casualidad, curioso la verdad...";
-        dialogues[2] = "Yo soy un monje bastante anciano\n ya, pero podria ayudarte";
+        dialogues[1] = "Asi que has llegado a \nesta isla por casualidad,\n curioso la verdad...";
+        dialogues[2] = "Yo soy un monje bastante\n anciano ya, pero podria ayudarte";
         dialogues[3] = "Aunque las cosas por aqui \nno van tan bien como parece";
-        dialogues[4] = "Ten buena suerte en la aventura y \nno dudes en consultarme dudas";
+        dialogues[4] = "Ten buena suerte en la aventura\n y no dudes en consultarme dudas";
     }
     @Override
     public void setAction() {
@@ -60,25 +60,6 @@ public class NPC_Sabio extends Entidad{
         }
     }
     public void speak(){
-        if (dialogues[dialogueIndex] == null){
-            dialogueIndex = 0;
-        }
-        gp.overlayUI.dialogo = dialogues[dialogueIndex];
-        dialogueIndex++;
-
-        switch (gp.player.path){
-            case "up":
-                path = "down";
-                break;
-            case "down":
-                path = "up";
-                break;
-            case "left":
-                path = "right";
-                break;
-            case "right":
-                path = "left";
-                break;
-        }
+        super.speak();
     }
 }

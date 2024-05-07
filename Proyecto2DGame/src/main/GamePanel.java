@@ -46,9 +46,11 @@ public class GamePanel extends JPanel implements  Runnable{
 
     // GAME STATE THINGS
     public int gameState;
+    public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
+
 
     public GamePanel (){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -60,8 +62,8 @@ public class GamePanel extends JPanel implements  Runnable{
     public void setupStuff(){
         aSetter.setObject();
         aSetter.setNPC();
-        playMusic(1);
-        gameState = playState;
+        //playMusic(1);
+        gameState = titleState;
     }
     public void startGameThread(){
         gameThread = new Thread(this);
@@ -118,27 +120,35 @@ public class GamePanel extends JPanel implements  Runnable{
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, getWidth(), getHeight());
-        ///casillas
-        TileM.draw(g2);
-        ///objects
-        for (int i = 0; i < obj.length; i++){
-            if (obj[i] != null){
-                obj[i].draw(g2, this);
-            }
-        }
-        /// npcs
-        for(int i = 0; i < npc.length; i++){
-            if(npc[i] != null){
-                npc[i].draw(g2);
-            }
 
+        //Title screen
+        if (gameState == titleState){
+            overlayUI.drawUI(g2);
         }
-        ///player
-        player.draw(g2);
+        //Others
+        else {
+            ///casillas
+            TileM.draw(g2);
+            ///objects
+            for (int i = 0; i < obj.length; i++){
+                if (obj[i] != null){
+                    obj[i].draw(g2, this);
+                }
+            }
+            /// npcs
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    npc[i].draw(g2);
+                }
 
-        //Overlay UI
-        overlayUI.drawUI(g2);
-        g2.dispose();
+            }
+            ///player
+            player.draw(g2);
+
+            //Overlay UI
+            overlayUI.drawUI(g2);
+            g2.dispose();
+        }
     }
     public void playMusic(int i){
         musica.setFile(i);

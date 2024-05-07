@@ -2,6 +2,7 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.IllegalFormatCodePointException;
 
 public class KeyboardHandler implements KeyListener {
     GamePanel gp;
@@ -16,6 +17,35 @@ public class KeyboardHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+        //Title state
+        if (gp.gameState == gp.titleState){
+            if (code == KeyEvent.VK_W){
+                gp.overlayUI.commandNum--;
+
+                if (gp.overlayUI.commandNum <0){
+                    gp.overlayUI.commandNum = 2;
+                }
+            }
+            if (code == KeyEvent.VK_S){
+                gp.overlayUI.commandNum++;
+                if (gp.overlayUI.commandNum >2){
+                    gp.overlayUI.commandNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER){
+                if (gp.overlayUI.commandNum ==0){
+                    gp.gameState = gp.playState;
+                    gp.playMusic(0);
+                }
+                if (gp.overlayUI.commandNum ==1){
+                    //later on
+                }
+                if (gp.overlayUI.commandNum ==2){
+                    System.exit(0);
+                }
+
+            }
+        }
 
         ///Play state
         if (gp.gameState == gp.playState){
