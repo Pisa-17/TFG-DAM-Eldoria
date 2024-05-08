@@ -1,5 +1,7 @@
 package main;
 
+import object.Sobject;
+import object.obj_heart;
 import object.obj_key;
 
 import java.awt.*;
@@ -10,6 +12,7 @@ public class OverlayUI {
     Graphics2D g2;
     Font arial_20;
     BufferedImage keyImage;
+    BufferedImage heart_full, heart_half,heart_empty;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -19,6 +22,12 @@ public class OverlayUI {
     public OverlayUI(GamePanel gp) {
         this.gp = gp;
         arial_20 = new Font("Tahoma", Font.PLAIN, 80);
+
+        // Create HUD Object
+        Sobject heart = new obj_heart(gp);
+        heart_full = heart.image;
+        heart_half = heart.image2;
+        heart_empty = heart.image3;
     }
 
     public void showMessage(String text) {
@@ -39,14 +48,50 @@ public class OverlayUI {
 
        if (gp.gameState == gp.playState){
            // Play state stuf
+           drawPlayerLife();
        }
        if (gp.gameState == gp.pauseState){
+           drawPlayerLife();
             drawPauseScreenState();
        }
        /// Dialogo NPC
         if (gp.gameState == gp.dialogueState){
+            drawPlayerLife();
             drawDialogueScreen();
         }
+
+
+    }
+
+    private void drawPlayerLife() {
+
+        //gp.player.life=1;
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+
+        // Draw max life
+        while(i < gp.player.maxHP/2){
+            g2.drawImage(heart_empty,x,y,null);
+            i++;
+            x +=gp.tileSize;
+        }
+        //Reset
+         x = gp.tileSize/2;
+         y = gp.tileSize/2;
+         i = 0;
+
+         //Draw current life
+        while(i < gp.player.life){
+            g2.drawImage(heart_half,x,y,null);
+            i++;
+            if (i<gp.player.life){
+                g2.drawImage(heart_full,x,y,null);
+            }
+            i++;
+            x += gp.tileSize;
+        }
+
     }
 
     private void drawTitleScreen() {

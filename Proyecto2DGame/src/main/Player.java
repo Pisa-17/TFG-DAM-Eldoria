@@ -48,10 +48,14 @@ public class Player extends Entidad {
 
 
     public void setDefaultValues() {
-        wordlx = 610;
-        wordly = 2150;
+        wordlx = gp.tileSize*23;
+        wordly = gp.tileSize*21;
         speed = 4;
         path = "down";
+
+        //Player status
+        maxHP = 6;
+        life = maxHP;
     }
 
     public void update() {
@@ -81,6 +85,11 @@ public class Player extends Entidad {
             /// Check de la colision del NPC
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactionNpc(npcIndex);
+
+            ///Check the events
+            gp.eHandler.checkEvent();
+
+            gp.KeyH.enterPressed = false;
 
             ///Si la colision es falsa
             if (collision == false) {
@@ -118,7 +127,7 @@ public class Player extends Entidad {
                 gp.npc[npcIndex].speak();
             }
         }
-        gp.KeyH.enterPressed = false;
+
     }
 
     public void recogerObjeto(int index) {
