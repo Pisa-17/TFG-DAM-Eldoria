@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TFG-DAM-Eldoria:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TFG_DAM_Eldoria_jar</output-path>
+    <root id="archive" name="TFG-DAM-Eldoria.jar">
+      <element id="module-output" name="TFG-DAM-Eldoria" />
+    </root>
+  </artifact>
+</component>

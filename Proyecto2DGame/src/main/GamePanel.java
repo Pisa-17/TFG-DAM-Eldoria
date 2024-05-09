@@ -1,13 +1,13 @@
 package main;
 
-import object.Sobject;
 import tiles.TileManager;
 
 import javax.swing.*;
 
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.basic.BasicTreeUI;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements  Runnable{
     ///Ajustes de pantalla
@@ -42,8 +42,9 @@ public class GamePanel extends JPanel implements  Runnable{
 
     // ENTITY AND OBJS
     public Player player = new Player(this,KeyH);
-    public Sobject obj [] = new Sobject[10];
+    public Entidad obj [] = new Entidad[10];
     public Entidad npc[] = new Entidad[10];
+    ArrayList<Entidad> entidadList = new ArrayList<>();
 
     // GAME STATE THINGS
     public int gameState;
@@ -130,26 +131,43 @@ public class GamePanel extends JPanel implements  Runnable{
         else {
             ///casillas
             TileM.draw(g2);
-            ///objects
-            for (int i = 0; i < obj.length; i++){
-                if (obj[i] != null){
-                    obj[i].draw(g2, this);
+            //Adicion de entidades a la lista
+            entidadList.add(player);
+            for (int i = 0; i<npc.length; i++){
+                if (npc[i] != null){
+                    entidadList.add(npc[i]);
                 }
             }
-            /// npcs
-            for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null){
-                    npc[i].draw(g2);
+            for (int i=0; i<obj.length; i++){
+                if (obj[i]!= null){
+                    entidadList.add(obj[i]);
                 }
+            }
+            /// ordenado
+            Collections.sort(entidadList, new Comparator<Entidad>() {
+                @Override
+                public int compare(Entidad o1, Entidad o2) {
+                    int result = Integer.compare(o1.wordly, o2.wordlx);
+                    return 0;
+                }
+            });
 
+            //Draw entity
+            for (int i = 0; i<entidadList.size(); i++ ){
+                entidadList.get(i).draw(g2);
             }
-            ///player
-            player.draw(g2);
+
+            /// Empty entity list
+            for (int i = 0; i<entidadList.size(); i++ ){
+                entidadList.remove(i);
+            }
+
 
             //Overlay UI
             overlayUI.drawUI(g2);
-            g2.dispose();
+
         }
+        g2.dispose();
     }
     public void playMusic(int i){
         musica.setFile(i);

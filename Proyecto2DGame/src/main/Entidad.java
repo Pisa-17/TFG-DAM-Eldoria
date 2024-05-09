@@ -11,7 +11,7 @@ public class Entidad {
     public int wordlx,wordly;
     public int speed;
     public BufferedImage up1,up2,down1,down2,right1,right2,left1,left2;
-    public String path;
+    public String path = "down";
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle hitbox = new Rectangle(0,0,48,48);
@@ -24,6 +24,10 @@ public class Entidad {
     //Character status
     public int maxHP;
     public int life;
+
+    public BufferedImage image, image2, image3;
+    public String name;
+    public boolean collisionObject = true;
 
         public Entidad(GamePanel gp){
             this.gp = gp;

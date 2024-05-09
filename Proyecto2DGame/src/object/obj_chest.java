@@ -1,20 +1,18 @@
 package object;
 
+import main.Entidad;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class obj_chest extends Sobject{
+public class obj_chest extends Entidad {
+    // Meter collision a true si queremos que se pueda chocar contra el
     GamePanel gp;
     public obj_chest(GamePanel gp){
-
+        super(gp);
         name = "Chest";
-        try{
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/Chest0.png"));
-            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        down1 = setup("/objects/Chest0");
+        collision = true;
     }
 }

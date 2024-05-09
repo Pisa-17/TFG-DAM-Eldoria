@@ -63,13 +63,13 @@ public class CollisionChecker {
                 entity.hitbox.x = entity.wordlx + entity.hitbox.x;
                 entity.hitbox.y = entity.wordly + entity.hitbox.y;
 
-                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
-                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+                gp.obj[i].hitbox.x = gp.obj[i].wordlx + gp.obj[i].hitbox.x;
+                gp.obj[i].hitbox.y = gp.obj[i].wordly + gp.obj[i].hitbox.y;
 
                 switch (entity.path){
                     case "up":
                         entity.hitbox.y -= entity.speed;
-                        if (entity.hitbox.intersects(gp.obj[i].solidArea)){
+                        if (entity.hitbox.intersects(gp.obj[i].hitbox)){
                             if (gp.obj[i].collision == true){
                                 entity.collision = true;
                             }
@@ -80,7 +80,7 @@ public class CollisionChecker {
                         break;
                     case "down":
                         entity.hitbox.y += entity.speed;
-                        if (entity.hitbox.intersects(gp.obj[i].solidArea)){
+                        if (entity.hitbox.intersects(gp.obj[i].hitbox)){
                             if (gp.obj[i].collision == true){
                                 entity.collision = true;
                             }
@@ -91,7 +91,7 @@ public class CollisionChecker {
                         break;
                     case "left":
                         entity.hitbox.x -= entity.speed;
-                        if (entity.hitbox.intersects(gp.obj[i].solidArea)) {
+                        if (entity.hitbox.intersects(gp.obj[i].hitbox)) {
                             if (gp.obj[i].collision == true){
                                 entity.collision = true;
                             }
@@ -102,7 +102,7 @@ public class CollisionChecker {
                         break;
                     case "right":
                         entity.hitbox.x += entity.speed;
-                        if (entity.hitbox.intersects(gp.obj[i].solidArea)){
+                        if (entity.hitbox.intersects(gp.obj[i].hitbox)){
                             if (gp.obj[i].collision == true){
                                 entity.collision = true;
                             }
@@ -114,8 +114,8 @@ public class CollisionChecker {
                 }
                 entity.hitbox.x = entity.solidAreaDefaultX;
                 entity.hitbox.y = entity.solidAreaDefaultY;
-                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
-                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+                gp.obj[i].hitbox.x = gp.obj[i].solidAreaDefaultX;
+                gp.obj[i].hitbox.y = gp.obj[i].solidAreaDefaultY;
 
 
                 }

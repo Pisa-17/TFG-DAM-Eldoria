@@ -1,8 +1,6 @@
 package main;
 
-import object.Sobject;
 import object.obj_heart;
-import object.obj_key;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,7 +22,7 @@ public class OverlayUI {
         arial_20 = new Font("Tahoma", Font.PLAIN, 80);
 
         // Create HUD Object
-        Sobject heart = new obj_heart(gp);
+        Entidad heart = new obj_heart(gp);
         heart_full = heart.image;
         heart_half = heart.image2;
         heart_empty = heart.image3;
