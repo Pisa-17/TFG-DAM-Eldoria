@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.security.Key;
 
 public class Player extends Entidad {
     KeyboardHandler KeyH;
@@ -29,8 +30,12 @@ public class Player extends Entidad {
         hitbox.width = 32;
         hitbox.height = 32;
 
+        attackHitbox.width = 36;
+        attackHitbox.height = 36;
+
         setDefaultValues();
         getPlayerSpritesWalking();
+        getPlayerAttackImage();
     }
 
     public void getPlayerSpritesWalking() {
@@ -44,6 +49,12 @@ public class Player extends Entidad {
         left1 = setup("/player/ninja_left1");
         left2 = setup("/player/ninja_left2");
 
+    }
+    public void getPlayerAttackImage(){
+        attackUp1= setup("/player/attackup_player");
+        attackDown1 = setup("/player/attack1_player");
+        attackLeft1 = setup("/player/attackleft_player");
+        attackRight1 = setup("/player/attackright_player");
     }
 
 
@@ -59,7 +70,10 @@ public class Player extends Entidad {
     }
 
     public void update() {
-        if (KeyH.upPressed == true || KeyH.downPreseed == true || KeyH.rightPressed == true || KeyH.leftPressed == true) {
+        if (attacking == true){
+            attacking();
+        }
+        else if (KeyH.upPressed == true || KeyH.downPreseed == true || KeyH.rightPressed == true || KeyH.leftPressed == true || KeyH.enterPressed == true) {
             if (KeyH.upPressed) {
                 path = "up";
 
@@ -93,10 +107,10 @@ public class Player extends Entidad {
             ///Check the events
             gp.eHandler.checkEvent();
 
-            gp.KeyH.enterPressed = false;
+
 
             ///Si la colision es falsa
-            if (collision == false) {
+            if (collision == false && KeyH.enterPressed == false) {
                 switch (path) {
                     case "up":
                         wordly -= speed;
@@ -112,6 +126,7 @@ public class Player extends Entidad {
                         break;
                 }
             }
+            gp.KeyH.enterPressed = false;
             spriteCounter++;
             if (spriteCounter > 12) {
                 if (spriteNum == 1) {
@@ -132,6 +147,59 @@ public class Player extends Entidad {
         }
     }
 
+    private void attacking() {
+        spriteCounter ++;
+
+        if (spriteCounter <= 5){
+            spriteNum = 1;
+        }
+        if (spriteCounter > 5 && spriteCounter <= 25){
+            spriteNum = 1;
+
+            /// Guardamos coordenadas de la hitbox
+            int currentWorldX = wordlx;
+            int currentWorldY = wordly;
+            int hitboxWidth = hitbox.width;
+            int hitboxHeight = hitbox.height;
+            switch (path){
+                case "up": wordly -= attackHitbox.height; break;
+                case "down": wordly += attackHitbox.height; break;
+                case "left": wordlx -= attackHitbox.width; break;
+                case "right": wordlx += attackHitbox.width; break;
+            }
+            hitbox.width = attackHitbox.width;
+            hitbox.height = attackHitbox.height;
+            /// Si tuvieramos mas de un sprite o un sprite de 32x16 deberiamos mantener esas variables, pero las dejamos en el codigo para futuras versiones
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            damageMonster(monsterIndex);
+            /// Si continuaramos lo dicho con animaciones de 32x16 deberiamos resetear los valores sobreescritos en caso de conflictos
+            wordlx = currentWorldX;
+            wordly = currentWorldY;
+            hitbox.width = hitboxWidth;
+            hitbox.height = hitboxHeight;
+
+        }
+
+
+        if (spriteCounter > 25){
+            spriteNum = 1;
+            spriteCounter = 0;
+            attacking = false;
+        }
+    }
+
+    private void damageMonster(int i) {
+        if ( i != 999) {
+            if (gp.monster[i].invencible == false){
+                        gp.monster[i].life -=1;
+                        gp.monster[i].invencible =true;
+                        if (gp.monster[i].life <= 0){
+                            gp.monster[i] = null;
+                        }
+            }
+        }
+    }
+
     private void contactoMonster(int i) {
         if (i != 999){
             if (invencible == false) {
@@ -142,13 +210,15 @@ public class Player extends Entidad {
     }
 
     private void interactionNpc(int npcIndex) {
-        if (npcIndex != 999) {
-            if (gp.KeyH.enterPressed) {
-                gp.gameState = gp.dialogueState;
-                gp.npc[npcIndex].speak();
+        if(gp.KeyH.enterPressed == true){
+            if (npcIndex != 999) {
+                    gp.gameState = gp.dialogueState;
+                    gp.npc[npcIndex].speak();
+            }
+            else {
+                attacking = true;
             }
         }
-
     }
 
     public void recogerObjeto(int index) {
@@ -162,35 +232,55 @@ public class Player extends Entidad {
         BufferedImage image = null;
         switch (path) {
             case "up":
-                if (spriteNum == 1) {
-                    image = up1;
+                if (attacking == false){
+                    if (spriteNum == 1) {
+                        image = up1;
+                    }
+                    if (spriteNum == 2) {
+                        image = up2;
+                    }
                 }
-                if (spriteNum == 2) {
-                    image = up2;
+                if (attacking == true){
+                    image = attackUp1;
                 }
                 break;
             case "down":
-                if (spriteNum == 1) {
-                    image = down1;
+                if (attacking == false){
+                    if (spriteNum == 1) {
+                        image = down1;
+                    }
+                    if (spriteNum == 2) {
+                        image = down2;
+                    }
                 }
-                if (spriteNum == 2) {
-                    image = down2;
+                if (attacking == true){
+                    image = attackDown1;
                 }
                 break;
             case "left":
-                if (spriteNum == 1) {
-                    image = left1;
+                if (attacking == false){
+                    if (spriteNum == 1) {
+                        image = left1;
+                    }
+                    if (spriteNum == 2) {
+                        image = left2;
+                    }
                 }
-                if (spriteNum == 2) {
-                    image = left2;
+                if (attacking == true){
+                    image = attackLeft1;
                 }
                 break;
             case "right":
-                if (spriteNum == 1) {
-                    image = right1;
+                if (attacking == false){
+                    if (spriteNum == 1) {
+                        image = right1;
+                    }
+                    if (spriteNum == 2) {
+                        image = right2;
+                    }
                 }
-                if (spriteNum == 2) {
-                    image = right2;
+                if (attacking == true){
+                    image = attackRight1;
                 }
                 break;
         }

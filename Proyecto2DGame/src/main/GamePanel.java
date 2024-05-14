@@ -120,7 +120,7 @@ public class GamePanel extends JPanel implements  Runnable{
         }
         if (gameState == pauseState){
             //nothing at the moment
-            
+
         }
 
     }
@@ -171,9 +171,7 @@ public class GamePanel extends JPanel implements  Runnable{
             }
 
             /// Empty entity list
-            for (int i = 0; i<entidadList.size(); i++ ){
-                entidadList.remove(i);
-            }
+            entidadList.clear();
 
 
             //Overlay UI

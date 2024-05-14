@@ -11,15 +11,18 @@ public class Entidad {
     public int wordlx,wordly;
     public int speed;
     public BufferedImage up1,up2,down1,down2,right1,right2,left1,left2;
+    public BufferedImage attackUp1, attackDown1, attackLeft1, attackRight1;
     public String path = "down";
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle hitbox = new Rectangle(0,0,48,48);
+    public Rectangle attackHitbox = new Rectangle(0,0,0,0);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = false;
     public int actionLoockCounter = 0;
     public boolean invencible = false;
     public int invencibleCounter = 0;
+    public boolean attacking = false;
     public String dialogues[] = new String[20];
     int dialogueIndex = 0;
     public int type;
@@ -101,6 +104,13 @@ public class Entidad {
                 }
                 spriteCounter = 0;
             }
+            if (invencible == true){
+                invencibleCounter++;
+                if (invencibleCounter > 40){
+                    invencible = false;
+                    invencibleCounter = 0;
+                }
+            }
 
         }
         public void draw(Graphics2D g2){
@@ -147,7 +157,11 @@ public class Entidad {
                         }
                         break;
                 }
+                if (invencible == true){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                }
                 g2.drawImage(image,screenX,screenY,gp.tileSize, gp.tileSize, null);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             }
         }
 
