@@ -173,10 +173,10 @@ public class OverlayUI {
     }
 
     public void drawPauseScreenState(){
-
         String text = "Pausa";
         int x = getXforCenter(text);
         int y = gp.screenHeight/2;
+        g2.drawString(text,x,y);
     }
 
     public int getXforCenter(String text){

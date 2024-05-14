@@ -35,7 +35,7 @@ public class KeyboardHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER){
                 if (gp.overlayUI.commandNum ==0){
                     gp.gameState = gp.playState;
-                    gp.playMusic(0);
+                    //gp.playMusic(0);
                 }
                 if (gp.overlayUI.commandNum ==1){
                     //later on
@@ -62,18 +62,25 @@ public class KeyboardHandler implements KeyListener {
                 rightPressed = true;
             }
             if (code == KeyEvent.VK_P){
-                gp.gameState = gp.pauseState;
+                if (gp.gameState == gp.playState){
+                    gp.gameState = gp.pauseState;
+                }else if (gp.gameState == gp.pauseState){
+                    gp.gameState = gp.playState;
+                }
+
             }
             if (code == KeyEvent.VK_ENTER){
                 enterPressed = true;
             }
         }
         ///Pause State
+
         if (gp.gameState == gp.playState){
             if (code == KeyEvent.VK_P){
                 gp.gameState = gp.playState;
             }
         }
+
         ///Dialogue state
         else if (gp.gameState == gp.dialogueState){
             if (code == KeyEvent.VK_ENTER){

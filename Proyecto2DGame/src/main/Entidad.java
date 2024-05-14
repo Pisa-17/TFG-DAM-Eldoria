@@ -18,8 +18,11 @@ public class Entidad {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = false;
     public int actionLoockCounter = 0;
+    public boolean invencible = false;
+    public int invencibleCounter = 0;
     public String dialogues[] = new String[20];
     int dialogueIndex = 0;
+    public int type;
 
     //Character status
     public int maxHP;
@@ -61,7 +64,16 @@ public class Entidad {
             collision = false;
             gp.cChecker.checkTitle(this);
             gp.cChecker.checkObj(this, false);
-            gp.cChecker.checkPlayer(this);
+            gp.cChecker.checkEntity(this, gp.npc);
+            gp.cChecker.checkEntity(this, gp.monster);
+            boolean contactoPlayer = gp.cChecker.checkPlayer(this);
+
+            if (this.type == 2 && contactoPlayer ==true){
+                if (gp.player.invencible ==false){
+                    gp.player.life -=1;
+                    gp.player.invencible = true;
+                }
+            }
 
             ///Si la colision es falsa
             if (collision == false) {

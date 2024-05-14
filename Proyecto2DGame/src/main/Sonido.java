@@ -9,9 +9,9 @@ public class Sonido {
     Clip clip;
     URL soundURL[] = new URL[30];
     public Sonido(){
-        soundURL[0] = getClass().getResource("/sonido/cancionrusa.wav");
+        //soundURL[0] = getClass().getResource("/sonido/cancionrusa.wav");
         soundURL[1] = getClass().getResource("/sonido/background.wav");
-        soundURL[2] = getClass().getResource("/sonido/CoinEffect.wav");
+        //soundURL[2] = getClass().getResource("/sonido/CoinEffect.wav");
     }
 
     public void setFile(int i){

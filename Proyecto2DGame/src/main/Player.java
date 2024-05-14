@@ -86,6 +86,10 @@ public class Player extends Entidad {
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactionNpc(npcIndex);
 
+            /// Check monster colision
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactoMonster(monsterIndex);
+
             ///Check the events
             gp.eHandler.checkEvent();
 
@@ -116,6 +120,23 @@ public class Player extends Entidad {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+        /// Esto tiene que estar aqui
+        if (invencible == true){
+            invencibleCounter++;
+            if (invencibleCounter > 60){
+                invencible = false;
+                invencibleCounter = 0;
+            }
+        }
+    }
+
+    private void contactoMonster(int i) {
+        if (i != 999){
+            if (invencible == false) {
+                life -= 1;
+                invencible = true;
             }
         }
     }
@@ -173,6 +194,12 @@ public class Player extends Entidad {
                 }
                 break;
         }
+        if (invencible == true){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage(image, ScreenX, ScreenY, null);
+
+        ///Reset alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
 }

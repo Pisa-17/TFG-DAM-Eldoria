@@ -1,5 +1,6 @@
 package main;
 
+import monster.mon_cyclope;
 import object.obj_chest;
 import object.obj_door;
 import object.obj_key;
@@ -29,5 +30,10 @@ public class AssetSetter {
         gp.npc[0] = new NPC_Sabio(gp);
         gp.npc[0].wordlx = gp.tileSize*21;
         gp.npc[0].wordly = gp.tileSize*21;
+    }
+    public void setMonster(){
+        gp.monster[0] = new mon_cyclope(gp);
+        gp.monster[0].wordlx = gp.tileSize*25;
+        gp.monster[0].wordly = gp.tileSize*25;
     }
 }
