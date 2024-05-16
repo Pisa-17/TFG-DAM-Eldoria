@@ -193,8 +193,9 @@ public class Player extends Entidad {
             if (gp.monster[i].invencible == false){
                         gp.monster[i].life -=1;
                         gp.monster[i].invencible =true;
+                        //gp.monster[i].damageReaction();
                         if (gp.monster[i].life <= 0){
-                            gp.monster[i] = null;
+                            gp.monster[i].dying = true;
                         }
             }
         }
@@ -287,9 +288,51 @@ public class Player extends Entidad {
         if (invencible == true){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
+        if (dying == true){
+            dyingAnimation(g2);
+        }
         g2.drawImage(image, ScreenX, ScreenY, null);
 
         ///Reset alpha
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+    }
+
+    public void dyingAnimation(Graphics2D g2) {
+        dyingCounter ++;
+
+        int i = 10;
+
+        if (dyingCounter <=i){
+            changeAlpha(g2, 0f);
+        }
+        if (dyingCounter > i && dyingCounter <= i*2){
+            changeAlpha(g2, 1f);
+        }
+        if (dyingCounter > i*2 && dyingCounter <= i*3){
+            changeAlpha(g2, 0f);
+        }
+        if (dyingCounter > i*3 && dyingCounter <= i*4){
+            changeAlpha(g2, 1f);
+        }
+        if (dyingCounter > i*4 && dyingCounter <= i*5){
+            changeAlpha(g2, 0f);
+        }
+        if (dyingCounter > i*5 && dyingCounter <= i*6){
+            changeAlpha(g2, 1f);
+        }
+        if (dyingCounter > i*6 && dyingCounter <= i*7){
+            changeAlpha(g2, 0f);
+        }
+        if (dyingCounter > i*7 && dyingCounter <= i*8){
+            changeAlpha(g2, 1f);
+        }
+        if (dyingCounter > i*8){
+            dying = false;
+            alive = false;
+
+        }
+    }
+    public void changeAlpha(Graphics2D g2, float alphaValue){
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
 }

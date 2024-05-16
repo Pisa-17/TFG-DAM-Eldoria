@@ -31,10 +31,10 @@ public class NPC_Sabio extends Entidad{
     }
     public void setDialogue(){
         dialogues[0] = "Hola aventurero!";
-        dialogues[1] = "Asi que has llegado a \nesta isla por casualidad,\n curioso la verdad...";
-        dialogues[2] = "Yo soy un monje bastante\n anciano ya, pero podria ayudarte";
-        dialogues[3] = "Aunque las cosas por aqui \nno van tan bien como parece";
-        dialogues[4] = "Ten buena suerte en la aventura\n y no dudes en consultarme dudas";
+        dialogues[1] = "Eres muy curioso...";
+        dialogues[2] = "Yo soy un monje";
+        dialogues[3] = "Aunque las cosas por aqui...";
+        dialogues[4] = "Ten buena suerte en la aventura";
     }
     @Override
     public void setAction() {

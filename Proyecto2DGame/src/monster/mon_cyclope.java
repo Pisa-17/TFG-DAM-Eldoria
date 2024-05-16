@@ -6,13 +6,15 @@ import main.GamePanel;
 import java.util.Random;
 
 public class mon_cyclope extends Entidad {
+    GamePanel gp;
+
     public mon_cyclope(GamePanel gp) {
         super(gp);
 
         type = 2;
         name = "Cyclope";
         speed = 3;
-        maxHP = 5;
+        maxHP = 20;
         life = maxHP;
 
         hitbox.x = 3;
@@ -56,5 +58,9 @@ public class mon_cyclope extends Entidad {
             }
             actionLoockCounter = 0;
         }
+    }
+    public void damageReaction(){
+        actionLoockCounter = 0;
+        path = gp.player.path;
     }
 }
