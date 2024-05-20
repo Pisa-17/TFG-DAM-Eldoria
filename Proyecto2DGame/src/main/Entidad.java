@@ -38,6 +38,21 @@ public class Entidad {
 
     public BufferedImage image, image2, image3;
     public String name;
+    public int level;
+    public int strength;
+    public int dexterity;
+    public int attack;
+    public int defense;
+    public int exp;
+    public int nextLevelExp;
+    public int coin;
+    public Entidad currentWeapon;
+    public Entidad currentShield;
+
+    /// Item attributes
+    public int attackValue;
+    public int defenseValue;
+
     public boolean collisionObject = true;
 
         public Entidad(GamePanel gp){

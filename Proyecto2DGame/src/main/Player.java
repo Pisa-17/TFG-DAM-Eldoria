@@ -1,5 +1,8 @@
 package main;
 
+import object.obj_defense_scrollFire;
+import object.obj_weapon_katana;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,6 +15,7 @@ public class Player extends Entidad {
     public final int ScreenX;
     public final int ScreenY;
     int standCounter = 0;
+    public boolean attackCancel = false;
 
 
     public Player(GamePanel gp, KeyboardHandler KeyH) {
@@ -65,8 +69,24 @@ public class Player extends Entidad {
         path = "down";
 
         //Player status
+        level = 1;
         maxHP = 6;
         life = maxHP;
+        strength = 1;
+        dexterity = 1;
+        exp = 0;
+        nextLevelExp = 10;
+        coin = 0;
+        currentWeapon = new obj_weapon_katana(gp);
+        currentShield = new obj_defense_scrollFire(gp);
+        attack = getAttack();
+        defense = getDefense();
+    }
+    public int getAttack(){
+        return attack = strength * currentWeapon.attackValue;
+    }
+    public int getDefense(){
+        return defense = dexterity * currentShield.defenseValue;
     }
 
     public void update() {
@@ -126,6 +146,12 @@ public class Player extends Entidad {
                         break;
                 }
             }
+
+            if (KeyH.enterPressed == true && attackCancel == false){
+                attacking = true;
+                spriteCounter = 0;
+            }
+            attackCancel = false;
             gp.KeyH.enterPressed = false;
             spriteCounter++;
             if (spriteCounter > 12) {
@@ -213,12 +239,11 @@ public class Player extends Entidad {
     private void interactionNpc(int npcIndex) {
         if(gp.KeyH.enterPressed == true){
             if (npcIndex != 999) {
+                attackCancel = true;
                     gp.gameState = gp.dialogueState;
                     gp.npc[npcIndex].speak();
             }
-            else {
-                attacking = true;
-            }
+
         }
     }
 

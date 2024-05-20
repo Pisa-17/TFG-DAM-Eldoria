@@ -71,6 +71,7 @@ public class EventHandler {
     public void healingEvent(int gameState){
         if (gp.KeyH.enterPressed == true){
             gp.gameState = gameState;
+            gp.player.attackCancel = true;
             gp.overlayUI.dialogo = "Has recuperado vida!";
             gp.player.life = gp.player.maxHP;
         }
