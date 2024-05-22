@@ -10,5 +10,6 @@ public class obj_defense_scrollFire extends Entidad {
         name = "Scroll Fire";
         down1 = setup("/objects/ScrollFire");
         defenseValue = 3;
+        description = "A Sacred fire Scroll";
     }
 }

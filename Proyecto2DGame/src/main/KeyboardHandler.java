@@ -108,6 +108,26 @@ public class KeyboardHandler implements KeyListener {
         if (code == KeyEvent.VK_C){
             gp.gameState = gp.playState;
         }
+        if (code == KeyEvent.VK_W){
+            if (gp.overlayUI.slotRow != 0){
+                gp.overlayUI.slotCol--;
+            }
+        }
+        if (code == KeyEvent.VK_A){
+            if (gp.overlayUI.slotCol !=0){
+                gp.overlayUI.slotRow--;
+            }
+        }
+        if (code == KeyEvent.VK_S){
+            if (gp.overlayUI.slotRow != 3){
+                gp.overlayUI.slotCol++;
+            }
+        }
+        if (code == KeyEvent.VK_D){
+            if (gp.overlayUI.slotCol != 4){
+                gp.overlayUI.slotRow++;
+            }
+        }
     }
 
 

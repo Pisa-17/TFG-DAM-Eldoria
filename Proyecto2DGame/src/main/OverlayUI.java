@@ -19,6 +19,8 @@ public class OverlayUI {
     ArrayList<Integer> messageCounter = new ArrayList<>();
     public String dialogo = "";
     public int commandNum = 0;
+    public int slotCol = 0;
+    public int slotRow = 0;
 
     public OverlayUI(GamePanel gp) {
         this.gp = gp;
@@ -65,9 +67,67 @@ public class OverlayUI {
         /// Status screen
         if (gp.gameState == gp.statusState){
             drawStatusScreen();
+            drawInventory();
         }
 
 
+    }
+
+    private void drawInventory() {
+        int frameX = gp.tileSize * 9;
+        int frameY = gp.tileSize;
+        int frameWidth = gp.tileSize * 6;
+        int frameHeight = gp.tileSize * 5;
+        drawLetters(frameX, frameY, frameWidth, frameHeight);
+        //Slots
+        final int slotXStart = frameX + 20;
+        final int slotYStart = frameY + 20;
+        int slotX = slotXStart;
+        int slotY = slotYStart;
+        ///Draw player
+        for (int i = 0; i<gp.player.inventory.size(); i++){
+            g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
+            slotX += gp.tileSize;
+            if (i == 4 || i == 9 || i == 14){
+                slotX = slotXStart;
+                slotY += gp.tileSize;
+            }
+        }
+
+        ///Cursor
+        int cursorX = slotXStart + (gp.tileSize * slotRow);
+        int cursorY = slotYStart + (gp.tileSize * slotCol);
+        int cursorWidth = gp.tileSize;
+        int cursorHeight = gp.tileSize;
+
+        //Data cursor
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+        // Description frame
+        int dFrameX = frameX;
+        int dFrameY = frameY + frameHeight;
+        int dFrameWidth = frameWidth;
+        int dFrameHeight = gp.tileSize*3;
+        drawLetters(dFrameX,dFrameY,dFrameWidth,dFrameHeight);
+
+        int textX = dFrameX + 20;
+        int textY = dFrameY + gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(28F));
+
+        int itemIndex = getIndexOfCursor();
+
+        if (itemIndex < gp.player.inventory.size()){
+
+            g2.drawString(gp.player.inventory.get(itemIndex).description, textX, textY);
+            textY +=32;
+        }
+
+    }
+    public int getIndexOfCursor(){
+        int itemIndex = slotCol + (slotRow*5);
+        return itemIndex;
     }
 
     private void drawMessageScroll() {
@@ -313,8 +373,6 @@ public class OverlayUI {
         x += gp.tileSize/2 + 90;
         y += gp.tileSize + 70;
         g2.drawString(text,x,y);
-
-
 
     }
 

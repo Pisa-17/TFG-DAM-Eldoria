@@ -1,6 +1,7 @@
 package main;
 
 import object.obj_defense_scrollFire;
+import object.obj_key;
 import object.obj_weapon_katana;
 
 import javax.imageio.ImageIO;
@@ -9,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.Buffer;
 import java.security.Key;
+import java.util.ArrayList;
 
 public class Player extends Entidad {
     KeyboardHandler KeyH;
@@ -16,6 +18,8 @@ public class Player extends Entidad {
     public final int ScreenY;
     int standCounter = 0;
     public boolean attackCancel = false;
+    public ArrayList<Entidad> inventory = new ArrayList<>();
+    public int inventorySize = 20;
 
 
     public Player(GamePanel gp, KeyboardHandler KeyH) {
@@ -40,6 +44,20 @@ public class Player extends Entidad {
         setDefaultValues();
         getPlayerSpritesWalking();
         getPlayerAttackImage();
+        setItems();
+    }
+
+    private void setItems() {
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new obj_key(gp));
+        inventory.add(new obj_key(gp));
+        inventory.add(new obj_key(gp));
+        inventory.add(new obj_key(gp));
+        inventory.add(new obj_key(gp));
+        inventory.add(new obj_key(gp));
+        inventory.add(new obj_key(gp));
+        inventory.add(new obj_key(gp));
     }
 
     public void getPlayerSpritesWalking() {
@@ -79,6 +97,7 @@ public class Player extends Entidad {
         coin = 0;
         currentWeapon = new obj_weapon_katana(gp);
         currentShield = new obj_defense_scrollFire(gp);
+        
         attack = getAttack();
         defense = getDefense();
     }

@@ -12,5 +12,6 @@ public class obj_boots extends Entidad {
         super(gp);
         name = "Boots";
         down1 = setup("/objects/Scroll01");
+        description = "An old Scroll..";
     }
 }

@@ -9,6 +9,7 @@ public class obj_key extends Entidad {
         super(gp);
         name = "Gold Key";
         down1 = setup("/objects/Key01");
+        description = "It opens a door";
 
     }
 

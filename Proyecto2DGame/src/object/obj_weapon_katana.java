@@ -10,5 +10,6 @@ public class obj_weapon_katana extends Entidad {
         name = "Katana";
         down1 = setup("/objects/katana");
         attackValue = 3;
+        description = "A nice katana!";
     }
 }

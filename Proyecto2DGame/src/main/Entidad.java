@@ -55,6 +55,8 @@ public class Entidad {
 
     public boolean collisionObject = true;
 
+    public String description = "";
+
         public Entidad(GamePanel gp){
             this.gp = gp;
         }

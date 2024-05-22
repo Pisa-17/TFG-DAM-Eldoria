@@ -10,5 +10,6 @@ public class obj_weapon_rapier extends Entidad {
         name = "Rapier";
         down1 = setup("/objects/rapier");
         attackValue = 7;
+        description = "Fast and lethal";
     }
 }
