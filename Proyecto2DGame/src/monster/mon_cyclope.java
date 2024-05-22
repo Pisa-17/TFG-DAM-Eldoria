@@ -16,6 +16,9 @@ public class mon_cyclope extends Entidad {
         speed = 3;
         maxHP = 20;
         life = maxHP;
+        attack = 5;
+        defense = 0;
+        exp = 2;
 
         hitbox.x = 3;
         hitbox.y = 18;

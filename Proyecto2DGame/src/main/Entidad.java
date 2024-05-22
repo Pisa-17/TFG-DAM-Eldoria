@@ -94,7 +94,13 @@ public class Entidad {
 
             if (this.type == 2 && contactoPlayer ==true){
                 if (gp.player.invencible ==false){
-                    gp.player.life -=1;
+
+                    int damage = attack - gp.player.defense;
+                    if (damage < 0){
+                        damage = 0;
+                    }
+                    life -= damage;
+                    gp.player.life -=damage;
                     gp.player.invencible = true;
                 }
             }

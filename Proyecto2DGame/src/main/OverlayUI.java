@@ -4,6 +4,7 @@ import object.obj_heart;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class OverlayUI {
     GamePanel gp;
@@ -12,8 +13,10 @@ public class OverlayUI {
     BufferedImage keyImage;
     BufferedImage heart_full, heart_half,heart_empty;
     public boolean messageOn = false;
-    public String message = "";
-    int messageCounter = 0;
+    //public String message = "";
+    //int messageCounter = 0;
+    ArrayList<String> message = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
     public String dialogo = "";
     public int commandNum = 0;
 
@@ -28,9 +31,10 @@ public class OverlayUI {
         heart_empty = heart.image3;
     }
 
-    public void showMessage(String text) {
-        message = text;
-        messageOn = true;
+    public void addMessage(String text) {
+        message.add(text);
+        messageCounter.add(0);
+
     }
 
     public void drawUI(Graphics2D g2) {
@@ -47,6 +51,7 @@ public class OverlayUI {
        if (gp.gameState == gp.playState){
            // Play state stuf
            drawPlayerLife();
+           drawMessageScroll();
        }
        if (gp.gameState == gp.pauseState){
            drawPlayerLife();
@@ -62,6 +67,32 @@ public class OverlayUI {
             drawStatusScreen();
         }
 
+
+    }
+
+    private void drawMessageScroll() {
+        int messageX = gp.tileSize;
+        int messageY = gp.tileSize*5;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+
+        for (int i = 0; i<message.size(); i++){
+            if (message.get(i) != null){
+                g2.setColor(Color.BLACK);
+                g2.drawString(message.get(i), messageX+2, messageY+2);
+
+                g2.setColor(Color.white);
+                g2.drawString(message.get(i), messageX, messageY);
+
+                int counter = messageCounter.get(i) + 1;
+                messageCounter.set(i, counter);
+                messageY +=50;
+
+                if (messageCounter.get(i) > 180){
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
+        }
 
     }
 
@@ -274,8 +305,17 @@ public class OverlayUI {
     public void drawPauseScreenState(){
         String text = "Pausa";
         int x = getXforCenter(text);
-        int y = gp.screenHeight/2;
+        int y = gp.screenHeight/2 - 150;
+        int width = gp.screenWidth - (gp.tileSize*7);
+        int height = gp.tileSize*4;
+        drawLetters(x, y, width, height);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,79F));
+        x += gp.tileSize/2 + 90;
+        y += gp.tileSize + 70;
         g2.drawString(text,x,y);
+
+
+
     }
 
     public int getXforCenter(String text){

@@ -217,20 +217,48 @@ public class Player extends Entidad {
     private void damageMonster(int i) {
         if ( i != 999) {
             if (gp.monster[i].invencible == false){
-                        gp.monster[i].life -=1;
+
+                        int damage = attack - gp.monster[i].defense;
+                        if (damage < 0){
+                            damage = 0;
+                        }
+                        gp.monster[i].life -= damage;
+                        gp.overlayUI.addMessage(damage + " damage!");
                         gp.monster[i].invencible =true;
                         //gp.monster[i].damageReaction();
                         if (gp.monster[i].life <= 0){
                             gp.monster[i].dying = true;
+                            gp.overlayUI.addMessage("Killed the " + gp.monster[i].name + "!");
+                            gp.overlayUI.addMessage("You gained  " + gp.monster[i].exp + " exp!");
+                            exp += gp.monster[i].exp;
+                            checkLevel();
                         }
             }
         }
     }
 
+    private void checkLevel(){
+        if (exp >= nextLevelExp){
+            level ++;
+            nextLevelExp = nextLevelExp*2;
+            maxHP += 2;
+            strength ++;
+            dexterity ++;
+            attack = getAttack();
+            defense = getDefense();
+
+            gp.gameState = gp.dialogueState;
+            gp.overlayUI.dialogo = "You are level " + level + " !";
+        }
+    }
     private void contactoMonster(int i) {
         if (i != 999){
             if (invencible == false) {
-                life -= 1;
+                int damage = gp.monster[i].attack - defense;
+                if (damage < 0){
+                    damage = 0;
+                }
+                life -= damage;
                 invencible = true;
             }
         }

@@ -74,6 +74,7 @@ public class EventHandler {
             gp.player.attackCancel = true;
             gp.overlayUI.dialogo = "Has recuperado vida!";
             gp.player.life = gp.player.maxHP;
+            gp.aSetter.setMonster();
         }
 
     }
