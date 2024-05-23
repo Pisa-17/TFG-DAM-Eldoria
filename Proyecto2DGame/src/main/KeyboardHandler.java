@@ -128,6 +128,9 @@ public class KeyboardHandler implements KeyListener {
                 gp.overlayUI.slotRow++;
             }
         }
+        if (code == KeyEvent.VK_ENTER){
+            gp.player.selectItem();
+        }
     }
 
 

@@ -3,6 +3,7 @@ package main;
 import object.obj_defense_scrollFire;
 import object.obj_key;
 import object.obj_weapon_katana;
+import object.obj_weapon_rapier;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -51,13 +52,7 @@ public class Player extends Entidad {
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         inventory.add(new obj_key(gp));
-        inventory.add(new obj_key(gp));
-        inventory.add(new obj_key(gp));
-        inventory.add(new obj_key(gp));
-        inventory.add(new obj_key(gp));
-        inventory.add(new obj_key(gp));
-        inventory.add(new obj_key(gp));
-        inventory.add(new obj_key(gp));
+        inventory.add(new obj_weapon_rapier(gp));
     }
 
     public void getPlayerSpritesWalking() {
@@ -102,6 +97,7 @@ public class Player extends Entidad {
         defense = getDefense();
     }
     public int getAttack(){
+        attackHitbox = currentWeapon.attackHitbox;
         return attack = strength * currentWeapon.attackValue;
     }
     public int getDefense(){
@@ -296,6 +292,15 @@ public class Player extends Entidad {
 
     public void recogerObjeto(int index) {
         if (index != 999) {
+            String text;
+            if (inventory.size() !=inventorySize){
+                inventory.add(gp.obj[index]);
+                text = "Cogiste un objeto!";
+            }else {
+                text = "No puedes cargar con nada mas";
+            }
+            gp.overlayUI.addMessage(text);
+            gp.obj[index] = null;
 
         }
     }
@@ -406,5 +411,28 @@ public class Player extends Entidad {
     }
     public void changeAlpha(Graphics2D g2, float alphaValue){
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
+    }
+    public void selectItem(){
+        int itemIndex = gp.overlayUI.getIndexOfCursor();
+
+        if (itemIndex < inventory.size()){
+            Entidad selectedItem = inventory.get(itemIndex);
+            if (selectedItem.type ==type_sword || selectedItem.type == type_rapier){
+                currentWeapon = selectedItem;
+                attack = getAttack();
+            }
+            if (selectedItem.type == type_scroll){
+                currentShield = selectedItem;
+                defense = getDefense();
+            }
+
+            //Añadir consumables aqui
+
+            if (selectedItem.type ==type_consumable){
+               selectedItem.use(this);
+               inventory.remove(itemIndex);
+            }
+
+        }
     }
 }

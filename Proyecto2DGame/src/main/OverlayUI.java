@@ -86,9 +86,14 @@ public class OverlayUI {
         int slotY = slotYStart;
         ///Draw player
         for (int i = 0; i<gp.player.inventory.size(); i++){
+            if (gp.player.inventory.get(i) == gp.player.currentWeapon || gp.player.inventory.get(i) == gp.player.currentShield){
+                g2.setColor(new Color(240, 190,90));
+                g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
+            }
+
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
             slotX += gp.tileSize;
-            if (i == 4 || i == 9 || i == 14){
+            if (slotX >= slotXStart + gp.tileSize * 5) { // Reset to start of next row after 5 columns
                 slotX = slotXStart;
                 slotY += gp.tileSize;
             }
@@ -118,15 +123,13 @@ public class OverlayUI {
 
         int itemIndex = getIndexOfCursor();
 
-        if (itemIndex < gp.player.inventory.size()){
-
+        if (itemIndex >= 0 && itemIndex < gp.player.inventory.size()) {
             g2.drawString(gp.player.inventory.get(itemIndex).description, textX, textY);
-            textY +=32;
         }
 
     }
     public int getIndexOfCursor(){
-        int itemIndex = slotCol + (slotRow*5);
+        int itemIndex = slotRow + (slotCol*5);
         return itemIndex;
     }
 

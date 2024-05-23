@@ -11,7 +11,7 @@ public class mon_cyclope extends Entidad {
     public mon_cyclope(GamePanel gp) {
         super(gp);
 
-        type = 2;
+        type = type_monster;
         name = "Cyclope";
         speed = 3;
         maxHP = 20;

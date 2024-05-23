@@ -31,6 +31,13 @@ public class Entidad {
     int dialogueIndex = 0;
     int dyingCounter = 0;
     public int type;
+    public final int type_player = 0;
+    public final int type_npc = 1;
+    public final int type_monster = 2;
+    public final int type_sword = 3;
+    public final int type_rapier = 4;
+    public final int type_scroll = 5;
+    public final int type_consumable = 6;
 
     //Character status
     public int maxHP;
@@ -94,7 +101,7 @@ public class Entidad {
             gp.cChecker.checkEntity(this, gp.monster);
             boolean contactoPlayer = gp.cChecker.checkPlayer(this);
 
-            if (this.type == 2 && contactoPlayer ==true){
+            if (this.type == type_monster && contactoPlayer ==true){
                 if (gp.player.invencible ==false){
 
                     int damage = attack - gp.player.defense;
@@ -219,6 +226,7 @@ public class Entidad {
                 changeAlpha(g2, 1F);
             }
         }
+        public void use(Entidad entidad){}
     public void dyingAnimation(Graphics2D g2) {
         dyingCounter ++;
 
