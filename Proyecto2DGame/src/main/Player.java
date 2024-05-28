@@ -186,6 +186,9 @@ public class Player extends Entidad {
                 invencibleCounter = 0;
             }
         }
+        if (life > maxHP){
+            life = maxHP;
+        }
     }
 
     private void attacking() {
@@ -252,6 +255,7 @@ public class Player extends Entidad {
         }
     }
 
+
     private void checkLevel(){
         if (exp >= nextLevelExp){
             level ++;
@@ -263,12 +267,12 @@ public class Player extends Entidad {
             defense = getDefense();
 
             gp.gameState = gp.dialogueState;
-            gp.overlayUI.dialogo = "You are level " + level + " !";
+            gp.overlayUI.dialogo = "Eres nivel " + level + " !";
         }
     }
     private void contactoMonster(int i) {
         if (i != 999){
-            if (invencible == false) {
+            if (invencible == false && gp.monster[i].dying ==false) {
                 int damage = gp.monster[i].attack - defense;
                 if (damage < 0){
                     damage = 0;
@@ -292,15 +296,22 @@ public class Player extends Entidad {
 
     public void recogerObjeto(int index) {
         if (index != 999) {
-            String text;
-            if (inventory.size() !=inventorySize){
-                inventory.add(gp.obj[index]);
-                text = "Cogiste un objeto!";
+            if (gp.obj[index].type == type_pickupOnly){
+                gp.obj[index].use(this);
+                gp.obj[index] = null;
             }else {
-                text = "No puedes cargar con nada mas";
+                String text;
+                if (inventory.size() !=inventorySize){
+                    inventory.add(gp.obj[index]);
+                    text = "Cogiste un objeto!";
+                }else {
+                    text = "No puedes cargar con nada mas";
+                }
+                gp.overlayUI.addMessage(text);
+                gp.obj[index] = null;
             }
-            gp.overlayUI.addMessage(text);
-            gp.obj[index] = null;
+
+
 
         }
     }

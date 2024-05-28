@@ -30,6 +30,7 @@ public class Entidad {
     public String dialogues[] = new String[20];
     int dialogueIndex = 0;
     int dyingCounter = 0;
+    public int value;
     public int type;
     public final int type_player = 0;
     public final int type_npc = 1;
@@ -38,6 +39,7 @@ public class Entidad {
     public final int type_rapier = 4;
     public final int type_scroll = 5;
     public final int type_consumable = 6;
+    public final int type_pickupOnly = 7;
 
     //Character status
     public int maxHP;
@@ -102,16 +104,7 @@ public class Entidad {
             boolean contactoPlayer = gp.cChecker.checkPlayer(this);
 
             if (this.type == type_monster && contactoPlayer ==true){
-                if (gp.player.invencible ==false){
-
-                    int damage = attack - gp.player.defense;
-                    if (damage < 0){
-                        damage = 0;
-                    }
-                    life -= damage;
-                    gp.player.life -=damage;
-                    gp.player.invencible = true;
-                }
+                damagePlayer(attack);
             }
 
             ///Si la colision es falsa
@@ -257,9 +250,20 @@ public class Entidad {
             changeAlpha(g2, 1f);
         }
         if (dyingCounter > i*8){
-            dying = false;
             alive = false;
 
+        }
+    }
+    public void damagePlayer(int attack){
+        if (gp.player.invencible ==false){
+
+            int damage = attack - gp.player.defense;
+            if (damage < 0){
+                damage = 0;
+            }
+            life -= damage;
+            gp.player.life -=damage;
+            gp.player.invencible = true;
         }
     }
     public void changeAlpha(Graphics2D g2, float alphaValue){
@@ -277,5 +281,18 @@ public class Entidad {
             throw new RuntimeException(e);
         }
         return image;
+    }
+    public void checkDrop(){
+
+    }
+    public void droppedItem(Entidad droppedItem){
+            for (int i = 0; i< gp.obj.length; i++){
+                if (gp.obj[i] == null){
+                    gp.obj[i] = droppedItem;
+                    gp.obj[i].wordlx = wordlx;
+                    gp.obj[i].wordly = wordly;
+                    break;
+                }
+            }
     }
 }

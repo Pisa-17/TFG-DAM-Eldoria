@@ -5,13 +5,14 @@ import main.GamePanel;
 
 public class obj_lifepot extends Entidad {
     GamePanel gp;
-    int value = 5;
+
 
     public obj_lifepot(GamePanel gp) {
         super(gp);
         this.gp = gp;
         type = type_consumable;
         name = "Pocion de vida";
+        value = 5;
         down1 = setup("/objects/LifePot");
         description = "Pocion que te recupera vida";
     }

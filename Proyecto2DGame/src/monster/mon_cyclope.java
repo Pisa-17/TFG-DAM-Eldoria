@@ -2,6 +2,8 @@ package monster;
 
 import main.Entidad;
 import main.GamePanel;
+import object.obj_coin;
+import object.obj_heart;
 
 import java.util.Random;
 
@@ -65,5 +67,18 @@ public class mon_cyclope extends Entidad {
     public void damageReaction(){
         actionLoockCounter = 0;
         path = gp.player.path;
+    }
+    public void checkDrop(){
+        int i = new Random().nextInt(100)+1;
+
+        if (i <50){
+            droppedItem(new obj_coin(gp));
+        }
+        if (i>= 50 && i<75){
+            droppedItem(new obj_heart(gp));
+        }
+        if (i>= 75 && i<100){
+            //Otro objeto
+        }
     }
 }
