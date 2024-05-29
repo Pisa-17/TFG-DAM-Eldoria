@@ -19,14 +19,14 @@ public class NPC_Sabio extends Entidad{
 
     public void getImage() {
 
-        up1 = setup("/npc/monk_up1");
-        up2 = setup("/npc/monk_up2");
-        down1 = setup("/npc/monk_down1");
-        down2 = setup("/npc/monk_down2");
-        right1 = setup("/npc/monk_right1");
-        right2 = setup("/npc/monk_right2");
-        left1 = setup("/npc/monk_left1");
-        left2 = setup("/npc/monk_left2");
+        up1 = setup("/npc/monk_up1", gp.tileSize, gp.tileSize);
+        up2 = setup("/npc/monk_up2", gp.tileSize, gp.tileSize);
+        down1 = setup("/npc/monk_down1", gp.tileSize, gp.tileSize);
+        down2 = setup("/npc/monk_down2", gp.tileSize, gp.tileSize);
+        right1 = setup("/npc/monk_right1", gp.tileSize, gp.tileSize);
+        right2 = setup("/npc/monk_right2", gp.tileSize, gp.tileSize);
+        left1 = setup("/npc/monk_left1", gp.tileSize, gp.tileSize);
+        left2 = setup("/npc/monk_left2", gp.tileSize, gp.tileSize);
 
     }
     public void setDialogue(){

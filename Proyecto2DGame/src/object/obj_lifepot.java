@@ -13,7 +13,7 @@ public class obj_lifepot extends Entidad {
         type = type_consumable;
         name = "Pocion de vida";
         value = 5;
-        down1 = setup("/objects/LifePot");
+        down1 = setup("/objects/LifePot", gp.tileSize, gp.tileSize);
         description = "Pocion que te recupera vida";
     }
     public void use(Entidad entidad){

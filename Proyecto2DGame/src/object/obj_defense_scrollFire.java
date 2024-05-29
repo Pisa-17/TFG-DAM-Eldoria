@@ -9,7 +9,7 @@ public class obj_defense_scrollFire extends Entidad {
         super(gp);
         type = type_scroll;
         name = "Scroll Fire";
-        down1 = setup("/objects/ScrollFire");
+        down1 = setup("/objects/ScrollFire", gp.tileSize, gp.tileSize);
         defenseValue = 3;
         description = "A Sacred fire Scroll";
     }

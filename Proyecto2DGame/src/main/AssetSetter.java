@@ -1,10 +1,7 @@
 package main;
 
 import monster.mon_cyclope;
-import object.obj_chest;
-import object.obj_door;
-import object.obj_key;
-import object.obj_lifepot;
+import object.*;
 
 public class AssetSetter {
     GamePanel gp;
@@ -30,6 +27,10 @@ public class AssetSetter {
         gp.obj[3] = new obj_lifepot(gp);
         gp.obj[3].wordlx = gp.tileSize*22;
         gp.obj[3].wordly = gp.tileSize*22;
+        i++;
+        gp.obj[4] = new obj_coin(gp);
+        gp.obj[4].wordlx = gp.tileSize*19;
+        gp.obj[4].wordly = gp.tileSize*19;
 
     }
     public void setNPC(){

@@ -12,7 +12,7 @@ public class obj_coin extends Entidad {
         type = type_pickupOnly;
         name = "Gold Coin";
         value = 1;
-        down1 = setup("/objects/GoldCoin");
+        down1 = setup("/objects/GoldCoin", gp.tileSize, gp.tileSize);
     }
 
     public void use(Entidad entidad){

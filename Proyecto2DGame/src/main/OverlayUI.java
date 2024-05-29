@@ -74,7 +74,7 @@ public class OverlayUI {
     }
 
     private void drawInventory() {
-        int frameX = gp.tileSize * 9;
+        int frameX = gp.tileSize * 12;
         int frameY = gp.tileSize;
         int frameWidth = gp.tileSize * 6;
         int frameHeight = gp.tileSize * 5;
@@ -161,7 +161,7 @@ public class OverlayUI {
 
     private void drawStatusScreen() {
         /// Creamos el frame
-        final int frameX = gp.tileSize;
+        final int frameX = gp.tileSize*2;
         final int frameY = gp.tileSize;
         final int frameWidth = gp.tileSize*5;
         final int frameHeight = gp.tileSize*10;

@@ -11,7 +11,7 @@ public class obj_boots extends Entidad {
     public obj_boots(GamePanel gp) {
         super(gp);
         name = "Boots";
-        down1 = setup("/objects/Scroll01");
+        down1 = setup("/objects/Scroll01", gp.tileSize, gp.tileSize);
         description = "An old Scroll..";
     }
 }

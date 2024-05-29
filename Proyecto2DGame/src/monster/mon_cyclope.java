@@ -3,7 +3,6 @@ package monster;
 import main.Entidad;
 import main.GamePanel;
 import object.obj_coin;
-import object.obj_heart;
 
 import java.util.Random;
 
@@ -12,10 +11,11 @@ public class mon_cyclope extends Entidad {
 
     public mon_cyclope(GamePanel gp) {
         super(gp);
+        this.gp = gp;
 
         type = type_monster;
         name = "Cyclope";
-        speed = 3;
+        speed = 2;
         maxHP = 20;
         life = maxHP;
         attack = 5;
@@ -32,15 +32,14 @@ public class mon_cyclope extends Entidad {
         getImage();
     }
     public void getImage(){
-        down1 = setup("/monster/monster1");
-        down2 = setup("/monster/monster2");
-        left1 = setup("/monster/left1_cyclope");
-        left2 = setup("/monster/left2_cyclope");
-        right1 = setup("/monster/right1_cyclope");
-        right2 = setup("/monster/right2_cyclope");
-        up1 = setup("/monster/up1_cyclope");
-        up2 = setup("/monster/up2_cyclope");
-
+        up1 = setup("/monster/up1_cyclope", gp.tileSize, gp.tileSize);
+        up2 = setup("/monster/up2_cyclope", gp.tileSize, gp.tileSize);
+        down1 = setup("/monster/monster1", gp.tileSize, gp.tileSize);
+        down2 = setup("/monster/monster2", gp.tileSize, gp.tileSize);
+        right1 = setup("/monster/right1_cyclope", gp.tileSize, gp.tileSize);
+        right2 = setup("/monster/right2_cyclope", gp.tileSize, gp.tileSize);
+        left1 = setup("/monster/left1_cyclope", gp.tileSize, gp.tileSize);
+        left2 = setup("/monster/left2_cyclope", gp.tileSize, gp.tileSize);
     }
     public void setAction(){
         actionLoockCounter++;
@@ -69,16 +68,6 @@ public class mon_cyclope extends Entidad {
         path = gp.player.path;
     }
     public void checkDrop(){
-        int i = new Random().nextInt(100)+1;
-
-        if (i <50){
-            droppedItem(new obj_coin(gp));
-        }
-        if (i>= 50 && i<75){
-            droppedItem(new obj_heart(gp));
-        }
-        if (i>= 75 && i<100){
-            //Otro objeto
-        }
+        droppedItem(new obj_coin(gp));
     }
 }

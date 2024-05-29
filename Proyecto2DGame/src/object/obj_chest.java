@@ -12,7 +12,7 @@ public class obj_chest extends Entidad {
     public obj_chest(GamePanel gp){
         super(gp);
         name = "Chest";
-        down1 = setup("/objects/Chest0");
+        down1 = setup("/objects/Chest0", gp.tileSize, gp.tileSize);
         collision = true;
     }
 }

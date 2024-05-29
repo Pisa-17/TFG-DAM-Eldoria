@@ -57,21 +57,21 @@ public class Player extends Entidad {
 
     public void getPlayerSpritesWalking() {
 
-        up1 = setup("/player/ninja_up1");
-        up2 = setup("/player/ninja_up2");
-        down1 = setup("/player/ninja_down1");
-        down2 = setup("/player/ninja_down2");
-        right1 = setup("/player/ninja_right1");
-        right2 = setup("/player/ninja_right2");
-        left1 = setup("/player/ninja_left1");
-        left2 = setup("/player/ninja_left2");
+        up1 = setup("/player/ninja_up1", gp.tileSize, gp.tileSize);
+        up2 = setup("/player/ninja_up2", gp.tileSize, gp.tileSize);
+        down1 = setup("/player/ninja_down1", gp.tileSize, gp.tileSize);
+        down2 = setup("/player/ninja_down2", gp.tileSize, gp.tileSize);
+        right1 = setup("/player/ninja_right1", gp.tileSize, gp.tileSize);
+        right2 = setup("/player/ninja_right2", gp.tileSize, gp.tileSize);
+        left1 = setup("/player/ninja_left1", gp.tileSize, gp.tileSize);
+        left2 = setup("/player/ninja_left2", gp.tileSize, gp.tileSize);
 
     }
     public void getPlayerAttackImage(){
-        attackUp1= setup("/player/attackup_player");
-        attackDown1 = setup("/player/attack1_player");
-        attackLeft1 = setup("/player/attackleft_player");
-        attackRight1 = setup("/player/attackright_player");
+        attackUp1= setup("/player/attackup_player", gp.tileSize, gp.tileSize);
+        attackDown1 = setup("/player/attack1_player", gp.tileSize, gp.tileSize);
+        attackLeft1 = setup("/player/attackleft_player", gp.tileSize, gp.tileSize);
+        attackRight1 = setup("/player/attackright_player", gp.tileSize, gp.tileSize);
     }
 
 

@@ -11,7 +11,7 @@ public class obj_door extends Entidad {
     public obj_door(GamePanel gp){
         super(gp);
         name = "Door";
-        down1 = setup("/objects/Door01");
+        down1 = setup("/objects/Door01", gp.tileSize, gp.tileSize);
 
     }
 }

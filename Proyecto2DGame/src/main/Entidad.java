@@ -5,6 +5,7 @@ import javax.swing.text.html.parser.Entity;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Entidad {
     GamePanel gp;
@@ -270,16 +271,33 @@ public class Entidad {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
 
-    public BufferedImage setup(String imagePath ){
+    public BufferedImage setup(String imagePath, int width, int height){
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
 
-        try{
-            image = ImageIO.read(getClass().getResourceAsStream( imagePath +".png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        try {
+            // Mensaje de depuración para verificar la ruta
+            System.out.println("Cargando recurso: " + imagePath + ".png");
+            // Obtener el recurso como stream
+            var resourceStream = getClass().getResourceAsStream(imagePath + ".png");
+            // Verificar si el recurso se encontró
+            if (resourceStream == null) {
+                throw new NullPointerException("El recurso no se encontró: " + imagePath + ".png");
+            }
+            // Leer la imagen
+            image = ImageIO.read(resourceStream);
+            // Validar que la imagen no sea null
+            Objects.requireNonNull(image, "La imagen no se pudo cargar, es null");
+            // Escalar la imagen
+            image = uTool.scaleImage(image, width, height);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            System.err.println("Error al leer la imagen en la ruta: " + imagePath + ".png");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            System.err.println("El recurso no se encontró o la imagen es null: " + imagePath + ".png");
         }
+
         return image;
     }
     public void checkDrop(){

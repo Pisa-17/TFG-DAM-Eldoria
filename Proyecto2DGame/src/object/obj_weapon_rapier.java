@@ -8,7 +8,7 @@ public class obj_weapon_rapier extends Entidad {
         super(gp);
         type = type_rapier;
         name = "Rapier";
-        down1 = setup("/objects/rapier");
+        down1 = setup("/objects/rapier", gp.tileSize, gp.tileSize);
         attackValue = 7;
         description = "Fast and lethal";
         attackHitbox.width = 36;
