@@ -2,6 +2,7 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.Key;
 import java.util.IllegalFormatCodePointException;
 
 public class KeyboardHandler implements KeyListener {
@@ -37,7 +38,51 @@ public class KeyboardHandler implements KeyListener {
         else if (gp.gameState == gp.statusState){
             characterStatus(code);
         }
+        ///OPTIONS STATE
+        else if (gp.gameState == gp.optionsState){
+            optionStatus(code);
+        }
     }
+
+    private void optionStatus(int code) {
+        if (code == KeyEvent.VK_ESCAPE){
+            gp.gameState = gp.playState;
+        }
+        if (code == KeyEvent.VK_ENTER){
+            enterPressed = true;
+
+        }
+        int maxCommandNum = 0;
+        switch (gp.overlayUI.subState){
+            case 0:maxCommandNum = 3; break;
+            case 3:maxCommandNum = 1; break;
+        }
+        if (code == KeyEvent.VK_W){
+            gp.overlayUI.commandNum--;
+            if (gp.overlayUI.commandNum <0){
+                gp.overlayUI.commandNum = maxCommandNum;
+            }
+        }
+        if (code == KeyEvent.VK_S){
+            gp.overlayUI.commandNum++;
+            if (gp.overlayUI.commandNum > maxCommandNum){
+                gp.overlayUI.commandNum = 0;
+            }
+        }
+        if (code == KeyEvent.VK_A){
+            if (gp.overlayUI.commandNum == 1 && gp.musica.volumeScale > 0){
+                gp.musica.volumeScale--;
+                gp.musica.checkVol();
+            }
+        }
+        if (code == KeyEvent.VK_D){
+            if (gp.overlayUI.commandNum == 1 && gp.musica.volumeScale < 5){
+                gp.musica.volumeScale++;
+                gp.musica.checkVol();
+            }
+        }
+    }
+
     public void titleState(int code){
         if (code == KeyEvent.VK_W){
             gp.overlayUI.commandNum--;
@@ -55,7 +100,7 @@ public class KeyboardHandler implements KeyListener {
         if (code == KeyEvent.VK_ENTER){
             if (gp.overlayUI.commandNum ==0){
                 gp.gameState = gp.playState;
-                //gp.playMusic(0);
+                //gp.playMusic(1);
             }
             if (gp.overlayUI.commandNum ==1){
                 //later on
@@ -92,6 +137,9 @@ public class KeyboardHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_ENTER){
             enterPressed = true;
+        }
+        if (code == KeyEvent.VK_ESCAPE){
+            gp.gameState = gp.optionsState;
         }
     }
     public void pauseState(int code){
