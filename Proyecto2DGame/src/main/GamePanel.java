@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements  Runnable{
     BufferedImage tempScreen;
     Graphics2D g2;
     public boolean fullScreenOn = false;
+    ConfigClass config = new ConfigClass(this);
 
 
     ////World map Settings
@@ -64,6 +65,7 @@ public class GamePanel extends JPanel implements  Runnable{
     public final int dialogueState = 3;
     public final int statusState = 4;
     public final int optionsState = 5;
+    public final int gameOverState = 6;
 
 
     public GamePanel (){
@@ -83,7 +85,22 @@ public class GamePanel extends JPanel implements  Runnable{
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
 
-        //setFullScreen();
+        if (fullScreenOn == true){
+            setFullScreen();
+        }
+    }
+    public void retry(){
+        player.setRetry();
+        player.restoreLife();
+        aSetter.setNPC();
+        aSetter.setMonster();
+    }
+    public void restart(){
+        player.setRetry();
+        player.restoreLife();
+        aSetter.setNPC();
+        aSetter.setMonster();
+        player.setItems();
     }
     public void startGameThread(){
         gameThread = new Thread(this);

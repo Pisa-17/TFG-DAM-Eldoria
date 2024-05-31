@@ -42,6 +42,35 @@ public class KeyboardHandler implements KeyListener {
         else if (gp.gameState == gp.optionsState){
             optionStatus(code);
         }
+        else if (gp.gameState == gp.gameOverState){
+            gameOverState(code);
+        }
+    }
+
+    private void gameOverState(int code) {
+        if (code == KeyEvent.VK_W){
+            gp.overlayUI.commandNum--;
+            if (gp.overlayUI.commandNum < 0){
+                gp.overlayUI.commandNum =1;
+            }
+        }
+        if (code == KeyEvent.VK_S){
+            gp.overlayUI.commandNum++;
+            if (gp.overlayUI.commandNum < 1){
+                gp.overlayUI.commandNum =0;
+            }
+        }
+        if (code == KeyEvent.VK_ENTER){
+            if (gp.overlayUI.commandNum == 0){
+                gp.gameState = gp.playState;
+                gp.retry();
+            }
+            else if (gp.overlayUI.commandNum == 1){
+                gp.gameState = gp.titleState;
+                gp.restart();
+            }
+
+        }
     }
 
     private void optionStatus(int code) {

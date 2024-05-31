@@ -48,7 +48,8 @@ public class Player extends Entidad {
         setItems();
     }
 
-    private void setItems() {
+    public void setItems() {
+        inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         inventory.add(new obj_key(gp));
@@ -188,6 +189,9 @@ public class Player extends Entidad {
         }
         if (life > maxHP){
             life = maxHP;
+        }
+        if (life<= 0){
+            gp.gameState = gp.gameOverState;
         }
     }
 
@@ -445,5 +449,14 @@ public class Player extends Entidad {
             }
 
         }
+    }
+    public void setRetry(){
+        wordlx = gp.tileSize*23;
+        wordly = gp.tileSize*21;
+        path = "down";
+    }
+    public void restoreLife(){
+        life = maxHP;
+        invencible = false;
     }
 }

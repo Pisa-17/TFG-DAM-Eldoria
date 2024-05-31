@@ -10,10 +10,15 @@ public class Main {
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         win.setResizable(false);
         win.setTitle("Eldoria");
-        win.setUndecorated(true);
+
 
         GamePanel gpanel = new GamePanel();
         win.add(gpanel);
+
+        gpanel.config.loadConfig();
+        if (gpanel.fullScreenOn == true){
+            win.setUndecorated(true);
+        }
 
         win.pack();
 
