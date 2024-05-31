@@ -10,8 +10,10 @@ Eldoria es un videojuego en 2 dimensiones de aventura y acción con elementos de
     <img src="https://skillicons.dev/icons?i=java,docker,idea,linux,mysql,latex" alt="Tecnologías del Proyecto" />
   </a>
 </p>
+
 ## Instalación
 Para la isntalación hay dos posibilidades ya que se puede realizar en linux y windows
+
 ### Linux
 Para configurar el entorno de desarrollo y ejecutar el proyecto, sigue estos pasos:
 
