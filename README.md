@@ -53,8 +53,8 @@ Empuja tus cambios a la rama (git push origin feature/nueva-feature).
 Abre un Pull Request.
 
 ## Enlaces de Interés
-[Documentación del Proyecto LaTeX](https://github.com/Pisa-17/documentationEldoriaTFG)
-[Assets del Juego](https://pixel-boy.itch.io/ninja-adventure-asset-pack)
-[Autor de los Assets](https://twitter.com/2Pblog1)
+- [Documentación del Proyecto LaTeX](https://github.com/Pisa-17/documentationEldoriaTFG)
+- [Assets del Juego](https://pixel-boy.itch.io/ninja-adventure-asset-pack)
+- [Autor de los Assets](https://twitter.com/2Pblog1)
 ## Contactos
 Para cualquier consulta o sugerencia, puedes contactar conmigo a través de RMO48806@gmail.com.
