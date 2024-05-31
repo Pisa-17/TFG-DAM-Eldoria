@@ -46,11 +46,11 @@ Al clonar este proyecto, es posible que encuentres un error indicando que no se 
 ## Contribución
 Si deseas contribuir al proyecto, sigue estos pasos:
 
-Haz un fork del repositorio.
-Crea una nueva rama (git checkout -b feature/nueva-feature).
-Realiza tus cambios y haz commit (git commit -m 'Añadir nueva feature').
-Empuja tus cambios a la rama (git push origin feature/nueva-feature).
-Abre un Pull Request.
+- Haz un fork del repositorio.
+- Crea una nueva rama (git checkout -b feature/nueva-feature).
+- Realiza tus cambios y haz commit (git commit -m 'Añadir nueva feature').
+- Empuja tus cambios a la rama (git push origin feature/nueva-feature).
+- Abre un Pull Request.
 
 ## Enlaces de Interés
 - [Documentación del Proyecto LaTeX](https://github.com/Pisa-17/documentationEldoriaTFG)
