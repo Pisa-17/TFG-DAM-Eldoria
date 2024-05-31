@@ -7,7 +7,7 @@ Eldoria es un videojuego en 2 dimensiones de aventura y acción con elementos de
 ## Tecnologías del Proyecto
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=java,docker,idea,linux,mysql,latex" alt="Tecnologías del Proyecto" />
+    <img src="https://skillicons.dev/icons?i=java,docker,idea,linux,windows,mysql,latex" alt="Tecnologías del Proyecto" />
   </a>
 </p>
 
