@@ -1,7 +1,9 @@
 package main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Main {
     public static JFrame win;
@@ -11,6 +13,12 @@ public class Main {
         win.setResizable(false);
         win.setTitle("Eldoria");
 
+        try {
+            Image icon = ImageIO.read(Main.class.getResource("/player/icono.jpg"));
+            win.setIconImage(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         GamePanel gpanel = new GamePanel();
         win.add(gpanel);
