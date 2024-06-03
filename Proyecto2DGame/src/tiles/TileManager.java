@@ -15,7 +15,7 @@ public class TileManager {
 
     GamePanel gp;
     public Tile[] tile;
-    public int mapTileNum [][];
+    public int mapTileNum [][][];
 
 
     public TileManager(GamePanel gp){
@@ -24,60 +24,35 @@ public class TileManager {
 
         tile = new Tile[50];
 
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+
 
         getTileImage();
-        loadmap("/maps/map05.txt");
+        loadmap("/maps/mapa1.txt",0);
+        loadmap("/maps/mapa2.txt",1);
     }
 
     public void getTileImage(){
-
-        ///Cesped
-
-            /*
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/001.png"));
-            */
-
         setup(0,"001",false);
-
-        ////Tree
-
-            /*
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/002.png"));
-            tile[1].colision = true;
-            */
         setup(1,"002",true);
-
-        ////Roca
-
-            /*
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/003.png"));
-            tile[2].colision = true;
-            */
-
         setup(2,"003",true);
-
-        ////Agua
-            /*
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/004.png"));
-            tile[3].colision = true;
-            */
-
         setup(3,"004",true);
-
-        ////Arena
-
-            /*
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/005.png"));
-            */
-
         setup(4,"005",false);
-
+        setup(5,"006",false);
+        setup(6,"007",false);
+        setup(7,"008",false);
+        setup(8,"009",false);
+        setup(9,"010",false);
+        setup(10,"011",false);
+        setup(11,"012",false);
+        setup(12,"013",false);
+        setup(13,"014",false);
+        setup(14,"015",false);
+        setup(15,"016",false);
+        setup(16,"005",false);
+        setup(17,"005",false);
+        setup(18,"005",false);
+        setup(19,"roca",true);
     }
 
     public void setup(int index, String imageName, boolean collision){
@@ -93,7 +68,7 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-    public void loadmap(String filepath){
+    public void loadmap(String filepath, int mapNumber){
 
         try{
             InputStream is = getClass().getResourceAsStream(filepath);
@@ -111,7 +86,7 @@ public class TileManager {
 
                     int num = Integer.parseInt(numbers[col]);
 
-                    mapTileNum[col][row] = num;
+                    mapTileNum[mapNumber][col][row] = num;
                     col++;
                 }
                 if (col == gp.maxWorldCol){
@@ -134,7 +109,7 @@ public class TileManager {
 
         while(Wordlcol < gp.maxWorldCol && WorldRow < gp.maxWorldRow){
 
-            int tileNum = mapTileNum[Wordlcol][WorldRow];
+            int tileNum = mapTileNum[gp.currentMap][Wordlcol][WorldRow];
 
             int worldX = Wordlcol * gp.tileSize;
             int worldy = WorldRow * gp.tileSize;

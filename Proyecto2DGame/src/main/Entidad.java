@@ -304,11 +304,11 @@ public class Entidad {
 
     }
     public void droppedItem(Entidad droppedItem){
-            for (int i = 0; i< gp.obj.length; i++){
-                if (gp.obj[i] == null){
-                    gp.obj[i] = droppedItem;
-                    gp.obj[i].wordlx = wordlx;
-                    gp.obj[i].wordly = wordly;
+            for (int i = 0; i< gp.obj[1].length; i++){
+                if (gp.obj[gp.currentMap][i] == null){
+                    gp.obj[gp.currentMap][i] = droppedItem;
+                    gp.obj[gp.currentMap][i].wordlx = wordlx;
+                    gp.obj[gp.currentMap][i].wordly = wordly;
                     break;
                 }
             }
