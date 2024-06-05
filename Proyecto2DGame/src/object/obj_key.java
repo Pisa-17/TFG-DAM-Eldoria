@@ -10,7 +10,7 @@ public class obj_key extends Entidad {
         name = "Gold Key";
         down1 = setup("/objects/Key01", gp.tileSize, gp.tileSize);
         description = "It opens a door";
-
+        price = 14;
     }
 
 }

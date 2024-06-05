@@ -45,6 +45,77 @@ public class KeyboardHandler implements KeyListener {
         else if (gp.gameState == gp.gameOverState){
             gameOverState(code);
         }
+
+    }
+    public void playerInventory(int code ){
+        if (code == KeyEvent.VK_W){
+            if (gp.overlayUI.playerslotRow != 0){
+                gp.overlayUI.playerslotCol--;
+            }
+        }
+        if (code == KeyEvent.VK_A){
+            if (gp.overlayUI.playerslotCol !=0){
+                gp.overlayUI.playerslotRow--;
+            }
+        }
+        if (code == KeyEvent.VK_S){
+            if (gp.overlayUI.playerslotRow != 3){
+                gp.overlayUI.playerslotCol++;
+            }
+        }
+        if (code == KeyEvent.VK_D){
+            if (gp.overlayUI.playerslotCol != 4){
+                gp.overlayUI.playerslotRow++;
+            }
+        }
+    }
+    public void npcInventory(int code ){
+        if (code == KeyEvent.VK_W){
+            if (gp.overlayUI.npcSlotRow != 0){
+                gp.overlayUI.npcSlotCol --;
+            }
+        }
+        if (code == KeyEvent.VK_A){
+            if (gp.overlayUI.npcSlotCol !=0){
+                gp.overlayUI.npcSlotRow --;
+            }
+        }
+        if (code == KeyEvent.VK_S){
+            if (gp.overlayUI.npcSlotRow != 3){
+                gp.overlayUI.npcSlotCol++;
+            }
+        }
+        if (code == KeyEvent.VK_D){
+            if (gp.overlayUI.npcSlotCol != 4){
+                gp.overlayUI.npcSlotRow ++;
+            }
+        }
+    }
+
+    private void tradeState(int code) {
+        if (code == KeyEvent.VK_ENTER){
+            enterPressed = true;
+        }
+        if (gp.overlayUI.subState == 0){
+            if (code == KeyEvent.VK_W){
+                gp.overlayUI.commandNum --;
+                if (gp.overlayUI.commandNum < 0){
+                    gp.overlayUI.commandNum = 2;
+                }
+            }
+            if (code == KeyEvent.VK_S){
+                gp.overlayUI.commandNum ++;
+                if (gp.overlayUI.commandNum > 2){
+                    gp.overlayUI.commandNum = 0;
+                }
+            }
+        }
+        if (gp.overlayUI.subState == 1){
+            npcInventory(code);
+            if (code == KeyEvent.VK_ESCAPE){
+                gp.overlayUI.subState = 0;
+            }
+        }
     }
 
     private void gameOverState(int code) {
@@ -129,10 +200,9 @@ public class KeyboardHandler implements KeyListener {
         if (code == KeyEvent.VK_ENTER){
             if (gp.overlayUI.commandNum ==0){
                 gp.gameState = gp.playState;
-                //gp.playMusic(1);
             }
             if (gp.overlayUI.commandNum ==1){
-                //later on
+                gp.gameState = gp.listState;
             }
             if (gp.overlayUI.commandNum ==2){
                 System.exit(0);
@@ -185,29 +255,11 @@ public class KeyboardHandler implements KeyListener {
         if (code == KeyEvent.VK_C){
             gp.gameState = gp.playState;
         }
-        if (code == KeyEvent.VK_W){
-            if (gp.overlayUI.slotRow != 0){
-                gp.overlayUI.slotCol--;
-            }
-        }
-        if (code == KeyEvent.VK_A){
-            if (gp.overlayUI.slotCol !=0){
-                gp.overlayUI.slotRow--;
-            }
-        }
-        if (code == KeyEvent.VK_S){
-            if (gp.overlayUI.slotRow != 3){
-                gp.overlayUI.slotCol++;
-            }
-        }
-        if (code == KeyEvent.VK_D){
-            if (gp.overlayUI.slotCol != 4){
-                gp.overlayUI.slotRow++;
-            }
-        }
+
         if (code == KeyEvent.VK_ENTER){
             gp.player.selectItem();
         }
+        playerInventory(code);
     }
 
 

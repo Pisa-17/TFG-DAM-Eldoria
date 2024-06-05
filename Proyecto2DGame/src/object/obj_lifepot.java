@@ -15,6 +15,7 @@ public class obj_lifepot extends Entidad {
         value = 5;
         down1 = setup("/objects/LifePot", gp.tileSize, gp.tileSize);
         description = "Pocion que te recupera vida";
+        price = 16;
     }
     public void use(Entidad entidad){
         gp.gameState = gp.dialogueState;

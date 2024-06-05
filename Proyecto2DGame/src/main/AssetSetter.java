@@ -38,10 +38,14 @@ public class AssetSetter {
     public void setNPC(){
         int nmap = 0;
 
-
+        int i=0;
         gp.npc[nmap][0] = new NPC_Sabio(gp);
         gp.npc[nmap][0].wordlx = gp.tileSize*21;
         gp.npc[nmap][0].wordly = gp.tileSize*21;
+        i++;
+        gp.npc[nmap][1] = new NPC_Merchant(gp);
+        gp.npc[nmap][1].wordlx = gp.tileSize*20;
+        gp.npc[nmap][1].wordly = gp.tileSize*20;
     }
     public void setMonster(){
         int nmap = 0;

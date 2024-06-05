@@ -19,8 +19,7 @@ public class Player extends Entidad {
     public final int ScreenY;
     int standCounter = 0;
     public boolean attackCancel = false;
-    public ArrayList<Entidad> inventory = new ArrayList<>();
-    public int inventorySize = 20;
+
 
 
     public Player(GamePanel gp, KeyboardHandler KeyH) {
@@ -79,7 +78,7 @@ public class Player extends Entidad {
     public void setDefaultValues() {
         wordlx = gp.tileSize*10;
         wordly = gp.tileSize*96;
-        speed = 4;
+        speed = 7;
         path = "down";
 
         //Player status
@@ -288,15 +287,19 @@ public class Player extends Entidad {
     }
 
     private void interactionNpc(int npcIndex) {
-        if(gp.KeyH.enterPressed == true){
-            if (npcIndex != 999) {
-                attackCancel = true;
-                    gp.gameState = gp.dialogueState;
-                    gp.npc[gp.currentMap][npcIndex].speak();
+    if(gp.KeyH.enterPressed == true){
+        if (npcIndex != 999) {
+            attackCancel = true;
+            if (gp.npc[gp.currentMap][npcIndex] instanceof NPC_Merchant) { // Comprueba si el NPC es un NPC_Merchant
+                gp.gameState = gp.tradeState; // Cambia el estado del juego a tradeState
+                gp.overlayUI.npc = gp.npc[gp.currentMap][npcIndex]; // Establece el NPC en la UI para el comercio
+            } else {
+                gp.gameState = gp.dialogueState;
             }
-
+            gp.npc[gp.currentMap][npcIndex].speak();
         }
     }
+}
 
     public void recogerObjeto(int index) {
         if (index != 999) {
@@ -428,7 +431,7 @@ public class Player extends Entidad {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
     public void selectItem(){
-        int itemIndex = gp.overlayUI.getIndexOfCursor();
+        int itemIndex = gp.overlayUI.getIndexOfCursor(gp.overlayUI.playerslotCol, gp.overlayUI.playerslotRow);
 
         if (itemIndex < inventory.size()){
             Entidad selectedItem = inventory.get(itemIndex);

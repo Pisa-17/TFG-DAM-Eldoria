@@ -14,5 +14,6 @@ public class obj_weapon_katana extends Entidad {
         description = "A nice katana!";
         attackHitbox.width = 30;
         attackHitbox.height = 30;
+        price = 13;
     }
 }

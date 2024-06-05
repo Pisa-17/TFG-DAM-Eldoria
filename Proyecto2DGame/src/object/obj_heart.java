@@ -15,6 +15,7 @@ GamePanel gp;
         image = setup("/objects/heart_full", gp.tileSize, gp.tileSize);
         image2 = setup("/objects/heart_half", gp.tileSize, gp.tileSize);
         image3 = setup("/objects/heart_empty", gp.tileSize, gp.tileSize);
+        price = 5;
     }
     public void use(Entidad entidad){
         gp.overlayUI.addMessage("Vida + " +value);

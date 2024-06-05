@@ -12,5 +12,6 @@ public class obj_defense_scrollFire extends Entidad {
         down1 = setup("/objects/ScrollFire", gp.tileSize, gp.tileSize);
         defenseValue = 3;
         description = "A Sacred fire Scroll";
+        price = 12;
     }
 }

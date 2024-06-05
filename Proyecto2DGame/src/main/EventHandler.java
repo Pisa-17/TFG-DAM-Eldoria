@@ -53,15 +53,15 @@ public class EventHandler {
                 // Event happens
                 damagePit(gp.dialogueState);
             }
-            if (hit(0,37,16,"right") == true){
+            else if (hit(0,37,16,"right") == true){
                 // Event happens
                 healingEvent(gp.dialogueState);
             }
-            if (hit(0,35,3,"up") == true){
+            else if (hit(0,95,6,"up") == true){
                 teleport(1,3,49);
             }
-            if (hit(1,3,49,"down") == true){
-                teleport(0,35,3);
+            else if (hit(1,3,49,"down") == true){
+                teleport(0,35,6);
             }
         }
 

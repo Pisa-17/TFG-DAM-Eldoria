@@ -6,7 +6,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 
 public class OverlayUI {
     GamePanel gp;
@@ -21,9 +30,12 @@ public class OverlayUI {
     ArrayList<Integer> messageCounter = new ArrayList<>();
     public String dialogo = "";
     public int commandNum = 0;
-    public int slotCol = 0;
-    public int slotRow = 0;
+    public int playerslotCol = 0;
+    public int playerslotRow = 0;
+    public int npcSlotCol = 0;
+    public int npcSlotRow = 0;
     int subState = 0;
+    public Entidad npc;
 
     public OverlayUI(GamePanel gp) {
         this.gp = gp;
@@ -78,7 +90,7 @@ public class OverlayUI {
         /// Status screen
         if (gp.gameState == gp.statusState){
             drawStatusScreen();
-            drawInventory();
+            drawInventory(gp.player, true);
         }
         /// Options screen
         if (gp.gameState == gp.optionsState){
@@ -88,8 +100,143 @@ public class OverlayUI {
         if (gp.gameState == gp.gameOverState){
             drawGameOverScreen();
         }
+        //// Trade screen
 
 
+
+    }
+
+    public ArrayList<String> getObjectsFromDatabase() {
+        ArrayList<String> objects = new ArrayList<>();
+        try {
+            String url = "jdbc:mysql://localhost:3306/Eldoria";
+            String user = "root";
+            String password = "";
+
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+
+            String sql = "SELECT name, existencias, precio FROM objects";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String objectName = rs.getString("name");
+                int existencias = rs.getInt("existencias");
+                double precio = rs.getDouble("precio");
+
+                String objectInfo = "Nombre: " + objectName + ", Existencias: " + existencias + ", Precio: " + precio;
+                objects.add(objectInfo);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo conectar a la base de datos.");
+            e.printStackTrace();
+        }
+        return objects;
+    }
+
+
+    private void drawTradeScreen() {
+        switch (subState){
+            case 1: trade_select();break;
+            case 2: trade_buy();break;
+            case 3: trade_sell();break;
+        }
+        gp.KeyH.enterPressed = false;
+    }
+    public void trade_select(){
+        drawDialogueScreen();
+
+        // options window
+        int x = gp.tileSize *15;
+        int y = gp.tileSize * 4;
+        int width = gp.tileSize*3;
+        int height = (int)(gp.tileSize *3.5);
+        drawLetters(x,y,width,height);
+
+        // draw texts
+        x += gp.tileSize;
+        y += gp.tileSize;
+        g2.drawString("Comprar", x,y);
+        if (commandNum == 0){
+            g2.drawString(">", x-24,y);
+            if (gp.KeyH.enterPressed == true){
+                subState = 1;
+            }
+        }
+        y+= gp.tileSize;
+        g2.drawString("Vender", x,y);
+        if (commandNum == 1){
+            g2.drawString(">", x-24,y);
+            if (gp.KeyH.enterPressed == true){
+                subState = 2;
+            }
+        }
+        y+= gp.tileSize;
+        g2.drawString("Salir", x,y);
+        if (commandNum == 2){
+            g2.drawString(">", x-24,y);
+            if (gp.KeyH.enterPressed == true){
+                commandNum = 0;
+                gp.gameState = gp.playState;
+            }
+        }
+
+    }
+    public void trade_buy(){
+        drawInventory(gp.player, false);
+        drawInventory(npc, true);
+        //NPC
+        int x = gp.tileSize*2;
+        int y = gp.tileSize*9;
+        int width = gp.tileSize*6;
+        int height = gp.tileSize*2;
+        drawLetters(x,y,width,height);
+        g2.drawString("[ESC] Back", x+24, y+60);
+
+        //Player
+         x = gp.tileSize*12;
+         y = gp.tileSize*9;
+         width = gp.tileSize*6;
+         height = gp.tileSize*2;
+        drawLetters(x,y,width,height);
+        g2.drawString("Dinero: " + gp.player.coin, x+24, y+60);
+
+        //Precio
+        int itemIndex = getIndexOfCursor(npcSlotCol, npcSlotRow);
+        if (itemIndex < npc.inventory.size()){
+            x = (int) (gp.tileSize*5.5);
+            y = (int) (gp.tileSize*5.5);
+            width = (int) gp.tileSize;
+            height = gp.tileSize;
+            drawLetters(x,y,width,height);
+
+            int price = npc.inventory.get(itemIndex).price;
+            String text = "Precio: " + price;
+            x = getXforCenter(text) + 200;
+            g2.drawString(text, x, y+60);
+        }
+        // Buy an item
+        if (gp.KeyH.enterPressed == true){
+            itemIndex = getIndexOfCursor(npcSlotCol, npcSlotRow);
+            if (itemIndex < npc.inventory.size()){
+                if (gp.player.coin >= npc.inventory.get(itemIndex).price){
+                    gp.player.coin -= npc.inventory.get(itemIndex).price;
+                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                    npc.inventory.remove(itemIndex);
+                }
+                else {
+                    addMessage("No tienes suficiente dinero");
+                }
+            }
+        }
+
+    }
+    public void trade_sell(){
+        // FUTURE UPDATE
     }
 
     private void drawGameOverScreen() {
@@ -290,25 +437,50 @@ public class OverlayUI {
         }
     }
 
-    private void drawInventory() {
-        int frameX = gp.tileSize * 12;
-        int frameY = gp.tileSize;
-        int frameWidth = gp.tileSize * 6;
-        int frameHeight = gp.tileSize * 5;
+    private void drawInventory(Entidad entity, boolean cursor) {
+
+        int frameX = 0;
+        int frameY = 0;
+        int frameWidth = 0;
+        int frameHeight = 0;
+        int slotRow = 0;
+        int slotCol = 0;
+        if (entity == gp.player){
+             frameX = gp.tileSize * 12;
+             frameY = gp.tileSize;
+             frameWidth = gp.tileSize * 6;
+          frameHeight = gp.tileSize * 5;
+          slotCol = playerslotCol;
+          slotRow = playerslotRow;
+        }
+        else {
+            frameX = gp.tileSize * 12;
+            frameY = gp.tileSize;
+            frameWidth = gp.tileSize * 6;
+            frameHeight = gp.tileSize * 5;
+            slotCol = npcSlotCol;
+            slotRow = npcSlotRow;
+        }
+
+
+
+
+
+
         drawLetters(frameX, frameY, frameWidth, frameHeight);
         //Slots
         final int slotXStart = frameX + 20;
         final int slotYStart = frameY + 20;
         int slotX = slotXStart;
         int slotY = slotYStart;
-        ///Draw player
-        for (int i = 0; i<gp.player.inventory.size(); i++){
-            if (gp.player.inventory.get(i) == gp.player.currentWeapon || gp.player.inventory.get(i) == gp.player.currentShield){
+
+        for (int i = 0; i<entity.inventory.size(); i++){
+            if (entity.inventory.get(i) == entity.currentWeapon || entity.inventory.get(i) == entity.currentShield){
                 g2.setColor(new Color(240, 190,90));
                 g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
             }
 
-            g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
+            g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
             slotX += gp.tileSize;
             if (slotX >= slotXStart + gp.tileSize * 5) { // Reset to start of next row after 5 columns
                 slotX = slotXStart;
@@ -317,35 +489,38 @@ public class OverlayUI {
         }
 
         ///Cursor
-        int cursorX = slotXStart + (gp.tileSize * slotRow);
-        int cursorY = slotYStart + (gp.tileSize * slotCol);
-        int cursorWidth = gp.tileSize;
-        int cursorHeight = gp.tileSize;
+        if (cursor == true){
+            int cursorX = slotXStart + (gp.tileSize * slotRow);
+            int cursorY = slotYStart + (gp.tileSize * slotCol);
+            int cursorWidth = gp.tileSize;
+            int cursorHeight = gp.tileSize;
 
-        //Data cursor
-        g2.setColor(Color.white);
-        g2.setStroke(new BasicStroke(3));
-        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+            //Data cursor
+            g2.setColor(Color.white);
+            g2.setStroke(new BasicStroke(3));
+            g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
 
-        // Description frame
-        int dFrameX = frameX;
-        int dFrameY = frameY + frameHeight;
-        int dFrameWidth = frameWidth;
-        int dFrameHeight = gp.tileSize*3;
-        drawLetters(dFrameX,dFrameY,dFrameWidth,dFrameHeight);
+            // Description frame
+            int dFrameX = frameX;
+            int dFrameY = frameY + frameHeight;
+            int dFrameWidth = frameWidth;
+            int dFrameHeight = gp.tileSize*3;
+            drawLetters(dFrameX,dFrameY,dFrameWidth,dFrameHeight);
 
-        int textX = dFrameX + 20;
-        int textY = dFrameY + gp.tileSize;
-        g2.setFont(g2.getFont().deriveFont(28F));
+            int textX = dFrameX + 20;
+            int textY = dFrameY + gp.tileSize;
+            g2.setFont(g2.getFont().deriveFont(28F));
 
-        int itemIndex = getIndexOfCursor();
+            int itemIndex = getIndexOfCursor(slotCol, slotRow);
 
-        if (itemIndex >= 0 && itemIndex < gp.player.inventory.size()) {
-            g2.drawString(gp.player.inventory.get(itemIndex).description, textX, textY);
+            if (itemIndex >= 0 && itemIndex < entity.inventory.size()) {
+                g2.drawString(entity.inventory.get(itemIndex).description, textX, textY);
+            }
         }
 
+
     }
-    public int getIndexOfCursor(){
+    public int getIndexOfCursor(int slotCol, int slotRow){
         int itemIndex = slotRow + (slotCol*5);
         return itemIndex;
     }
@@ -535,7 +710,7 @@ public class OverlayUI {
             g2.drawString(">", x-gp.tileSize, y);
         }
 
-        text = "Cargar juego";
+        text = "Cargar partida (F.U)";
         x = getXforCenter(text) +200;
         y += gp.tileSize;
         g2.drawString(text,x,y);
@@ -584,15 +759,29 @@ public class OverlayUI {
 
     public void drawPauseScreenState(){
         String text = "Pausa";
-        int x = getXforCenter(text);
-        int y = gp.screenHeight/2 - 150;
-        int width = gp.screenWidth - (gp.tileSize*7);
-        int height = gp.tileSize*4;
+        int x = gp.tileSize * 2;
+        int y = gp.tileSize * 2;
+        int width = gp.tileSize*16;
+        int height = (int)(gp.tileSize *7.5);
         drawLetters(x, y, width, height);
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN,79F));
-        x += gp.tileSize/2 + 90;
-        y += gp.tileSize + 70;
+        x += gp.tileSize + 200;
+        y += gp.tileSize + 20;
         g2.drawString(text,x,y);
+
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        ArrayList<String> objects = getObjectsFromDatabase();
+        System.out.println(objects);
+        y += gp.tileSize * 2;
+        x = gp.tileSize * 2;
+
+
+
+        for (String object : objects) {
+            g2.drawString(object, x+15, y);
+            y += gp.tileSize;
+        }
 
     }
 

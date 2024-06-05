@@ -13,6 +13,6 @@ public class obj_weapon_rapier extends Entidad {
         description = "Fast and lethal";
         attackHitbox.width = 36;
         attackHitbox.height = 36;
-
+        price = 22;
     }
 }

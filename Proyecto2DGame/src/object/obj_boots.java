@@ -13,5 +13,6 @@ public class obj_boots extends Entidad {
         name = "Boots";
         down1 = setup("/objects/Scroll01", gp.tileSize, gp.tileSize);
         description = "An old Scroll..";
+        price = 10;
     }
 }

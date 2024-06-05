@@ -69,6 +69,8 @@ public class GamePanel extends JPanel implements  Runnable{
     public final int statusState = 4;
     public final int optionsState = 5;
     public final int gameOverState = 6;
+    public final int tradeState = 7;
+    public final int listState = 8;
 
 
     public GamePanel (){
@@ -89,9 +91,11 @@ public class GamePanel extends JPanel implements  Runnable{
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
 
+        /*
         if (fullScreenOn == true){
             setFullScreen();
         }
+        */
     }
     public void retry(){
         player.setRetry();

@@ -5,6 +5,7 @@ import javax.swing.text.html.parser.Entity;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Entidad {
@@ -56,6 +57,7 @@ public class Entidad {
     public int exp;
     public int nextLevelExp;
     public int coin;
+    public int price;
     public Entidad currentWeapon;
     public Entidad currentShield;
 
@@ -66,6 +68,9 @@ public class Entidad {
     public boolean collisionObject = true;
 
     public String description = "";
+
+    public ArrayList<Entidad> inventory = new ArrayList<>();
+    public int inventorySize = 20;
 
         public Entidad(GamePanel gp){
             this.gp = gp;
