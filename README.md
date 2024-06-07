@@ -19,7 +19,7 @@ Para configurar el entorno de desarrollo y ejecutar el proyecto, sigue estos pas
 
 Clona este repositorio:
 ```bash
-git clone https://github.com/tuusuario/TFG-DAM-Eldoria.git
+git clone https://github.com/Pisa-17/TFG-DAM-Eldoria.git
 ```
 Configura tu IDE para que la carpeta res sea una carpeta de recursos.
 #### Instalar XAMPP
