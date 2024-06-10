@@ -1,4 +1,4 @@
-# TFG-DAM-Eldoria
+# Proyecto-DAM-Eldoria
 Este repositorio contiene el código fuente del proyecto Eldoria para el módulo de Desarrollo de Aplicaciones Multiplataforma (DAM). La documentación completa del proyecto se encuentra en un repositorio separado.
 
 ## Introducción
