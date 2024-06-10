@@ -68,5 +68,9 @@ Si deseas contribuir al proyecto, sigue estos pasos:
 - [Documentación del Proyecto LaTeX](https://github.com/Pisa-17/documentationEldoriaTFG)
 - [Assets del Juego](https://pixel-boy.itch.io/ninja-adventure-asset-pack)
 - [Autor de los Assets](https://twitter.com/2Pblog1)
+
+## Licencia
+Este proyecto está disponible bajo la licencia [MIT](https://opensource.org/licenses/MIT). Se alienta a los usuarios a respetar los términos de esta licencia al utilizar el código y la documentación proporcionados.
+
 ## Contactos
 Para cualquier consulta o sugerencia, puedes contactar conmigo a través de RMO48806@gmail.com.
