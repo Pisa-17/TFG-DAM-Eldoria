@@ -37,13 +37,17 @@ Asegúrate de tener XAMPP ejecutando con Apache y MYSQL.
 ```bash
 sudo /opt/lampp/lampp start
 ```
+Al ejecutarlos asegúrate de importar correctamente el script sql que se provee en el repositorio
+
 Importa el proyecto en tu IDE y configura las dependencias necesarias.
 
+En caso de faltar las dependencias deberás descargártelas tu mismo.
 
 ### Windows
 
 Primero descarga la [JDK 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
-A continuación usa el archivo sql del repositorio para crear la base de datos en un servidor web con XAMPP, este archivo contiene varios objetos, siéntete libre de editarlo o incluso añadir nuevos objetos
+Después descárgate el jar disponible en el repositorio y ejcutalo con XAMPP instalado en tu equipo.
+A continuación usa el archivo sql del repositorio para crear la base de datos en un servidor web con XAMPP, este archivo contiene varios objetos, siéntete libre de editarlo o incluso añadir nuevos objetos.
 
 ## Uso
 Después de la instalación, puedes ejecutar el proyecto desde tu IDE. Asegúrate de que la base de datos MySQL esté corriendo en XAMPP con MYSQL.
