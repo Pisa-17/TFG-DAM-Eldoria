@@ -48,4 +48,11 @@ public class Sonido {
         }
         fc.setValue(volume);
     }
+    public boolean isMusicPlaying() {
+        if (clip != null) {
+            return clip.isActive();
+        }
+        return false;
+    }
+
 }
