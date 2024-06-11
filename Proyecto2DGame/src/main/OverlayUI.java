@@ -683,7 +683,7 @@ public class OverlayUI {
         g2.fillRect(0,0,gp.screenWidth, gp.screenHeight);
         // Title screen name
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 92F));
-        String text = "Eldoria - TFG";
+        String text = "Eldoria - Proyecto FP";
         int x = getXforCenter(text) + 200;
         int y = gp.tileSize*3;
 
